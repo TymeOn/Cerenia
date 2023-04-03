@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "firstname": "Fredericka",
+    "lastname": "Osborne",
+    "email": "et.tristique@google.com",
+    "password": "sagittisfelisDonec",
+    "host": true
+  },
+  {
+    "id": 2,
+    "firstname": "Shannon",
+    "lastname": "Weiss",
+    "email": "ut@hotmail.net",
+    "password": "magnis",
+    "host": false
+  },
+  {
+    "id": 3,
+    "firstname": "Raymond",
+    "lastname": "Thornton",
+    "email": "sed.sem@google.com",
+    "password": "turpis",
+    "host": false
+  },
+  {
+    "id": 4,
+    "firstname": "Quon",
+    "lastname": "Navarro",
+    "email": "quisque.libero@protonmail.couk",
+    "password": "ornaretortoratrisus.",
+    "host": true
+  },
+  {
+    "id": 5,
+    "firstname": "Warren",
+    "lastname": "Terry",
+    "email": "hymenaeos.mauris@protonmail.couk",
+    "password": "duilectusrutrumurnanec",
+    "host": false
+  }
+]
