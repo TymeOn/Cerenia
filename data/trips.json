@@ -9,18 +9,21 @@
     "endDate": "2023-12-15 23:59:59",
     "price": 871,
     "maxPeople": 29,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pretium aliquam orci vel elementum. Nunc venenatis nunc ex, non viverra orci iaculis at. Vivamus tristique id tortor quis bibendum.",
     "comments": [
       {
         "id": 1,
         "userId": 2,
         "rating": 4,
-        "text": "dui, in sodales elit erat vitae risus. Duis"
+        "text": "dui, in sodales elit erat vitae risus. Duis",
+        "createdAt": "2023-04-03 16:35:07"
       },
       {
         "id": 1,
         "userId": 5,
         "rating": 3,
-        "text": "lobortis, nisi nibh lacinia orci, consectetuer euismod est"
+        "text": "lobortis, nisi nibh lacinia orci, consectetuer euismod est",
+        "createdAt": "2023-04-03 16:35:07"
       }
     ]
   },
@@ -34,12 +37,14 @@
     "endDate": "2023-10-23 23:59:59",
     "price": 386,
     "maxPeople": 17,
+    "description": "Duis nunc nibh, luctus ut venenatis non, ornare sed lorem. Nullam maximus justo eget est cursus volutpat.",
     "comments": [
       {
         "id": 1,
         "userId": 3,
         "rating": 1,
-        "text": "leo."
+        "text": "leo.",
+        "createdAt": "2023-04-03 16:35:07"
       }
     ]
   },
@@ -53,12 +58,14 @@
     "endDate": "2023-11-29 23:59:59",
     "price": 83,
     "maxPeople": 26,
+    "description": "Praesent tempor risus ut ex consectetur aliquet. Ut sit amet dui quis lacus lobortis ornare. Duis convallis, nunc non viverra vulputate, diam felis eleifend nulla, at sodales justo arcu vitae velit.",
     "comments": [
       {
         "id": 1,
         "userId": 5,
         "rating": 2,
-        "text": "non, vestibulum nec, euismod in, dolor. Fusce feugiat. Lorem"
+        "text": "non, vestibulum nec, euismod in, dolor. Fusce feugiat. Lorem",
+        "createdAt": "2023-04-03 16:35:07"
       }
     ]
   },
@@ -72,12 +79,14 @@
     "endDate": "2023-05-28 23:59:59",
     "price": 995,
     "maxPeople": 21,
+    "description": "Sed tristique convallis turpis ut consectetur. Morbi consequat diam sed ullamcorper ultricies." ,
     "comments": [
       {
         "id": 1,
         "userId": 2,
         "rating": 2,
-        "text": "et netus et malesuada fames ac turpis egestas. Aliquam fringilla"
+        "text": "et netus et malesuada fames ac turpis egestas. Aliquam fringilla",
+        "createdAt": "2023-04-03 16:35:07"
       }
     ]
   },
@@ -91,12 +100,14 @@
     "endDate": "2023-06-24 23:59:59",
     "price": 712,
     "maxPeople": 34,
+    "description": "Sed eget elit nec sem fermentum tincidunt quis id velit. Donec ut mi turpis. Donec nec luctus justo, vel auctor nunc. Praesent quis urna sed est laoreet egestas." ,
     "comments": [
       {
         "id": 1,
         "userId": 3,
         "rating": 5,
-        "text": "at, nisi. Cum sociis"
+        "text": "at, nisi. Cum sociis",
+        "createdAt": "2023-04-03 16:35:07"
       }
     ]
   }

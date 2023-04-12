@@ -14,9 +14,10 @@ public class Trip {
     private Date endDate;
     private float price;
     private Integer maxPeople;
+    private String description;
     private List<Comment> comments;
 
-    public Trip(Integer id, String name, User host, String city, String country, Date startDate, Date endDate, float price, Integer maxPeople, List<Comment> comments) {
+    public Trip(Integer id, String name, User host, String city, String country, Date startDate, Date endDate, float price, Integer maxPeople, String description, List<Comment> comments) {
         this.id = id;
         this.name = name;
         this.host = host;
@@ -26,6 +27,7 @@ public class Trip {
         this.endDate = endDate;
         this.price = price;
         this.maxPeople = maxPeople;
+        this.description = description;
         this.comments = comments;
     }
 
@@ -99,6 +101,14 @@ public class Trip {
 
     public void setMaxPeople(Integer maxPeople) {
         this.maxPeople = maxPeople;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Comment> getComments() {
