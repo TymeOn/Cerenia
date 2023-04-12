@@ -1,16 +1,19 @@
 package com.anmvg.cerenia.models;
 
+import java.util.Date;
+
 public class Comment {
 
     private User user;
     private Integer rating;
     private String text;
+    private Date createdAt;
 
-    public Comment(User user, Integer rating, String text) {
+    public Comment(User user, Integer rating, String text, Date createdAt) {
         this.user = user;
         this.rating = rating;
         this.text = text;
-        // TODO : adding a "created at" field
+        this.createdAt = createdAt;
     }
 
     public User getUser() {
@@ -37,4 +40,11 @@ public class Comment {
         this.text = text;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }

@@ -14,13 +14,14 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class HelloApplication extends Application {
+public class MainApplication extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("dashboard-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-        stage.setTitle("Hello!");
+        stage.setTitle("Cerenia");
         stage.setScene(scene);
         stage.show();
 
@@ -53,6 +54,8 @@ public class HelloApplication extends Application {
                     .append(comment.getRating())
                     .append(" ")
                     .append(comment.getText())
+                    .append(" ")
+                    .append(comment.getCreatedAt())
                     .append("]");
             }
             comments.append("}");
@@ -67,6 +70,7 @@ public class HelloApplication extends Application {
                 dateFormat.format(trip.getEndDate())  + " " +
                 trip.getPrice() + " " +
                 trip.getMaxPeople() + " " +
+                trip.getDescription() + " " +
                 comments
             );
         }

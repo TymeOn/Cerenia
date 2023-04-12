@@ -123,11 +123,23 @@ public class DataService {
                 // getting the user
                 User user = getUser(commentsArray.getJSONObject(j).getInt("userId"));
 
+                // getting the creation date
+                Date createdAt = new Date();
+
+                try {
+                    String createdAtString = commentsArray.getJSONObject(j).getString("createdAt");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    createdAt = sdf.parse(createdAtString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 comments.add(
                     new Comment(
                         user,
                         commentsArray.getJSONObject(j).getInt("rating"),
-                        commentsArray.getJSONObject(j).getString("text")
+                        commentsArray.getJSONObject(j).getString("text"),
+                        createdAt
                     )
                 );
             }
@@ -144,6 +156,7 @@ public class DataService {
                     endDate,
                     tripsJSON.getJSONObject(i).getFloat("price"),
                     tripsJSON.getJSONObject(i).getInt("maxPeople"),
+                    tripsJSON.getJSONObject(i).getString("description"),
                     comments
                 )
             );
