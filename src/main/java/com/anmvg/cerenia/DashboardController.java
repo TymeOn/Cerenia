@@ -12,9 +12,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -27,14 +32,14 @@ public class DashboardController {
     @FXML
     private Spinner<Integer> peopleSpinner;
 
-    public void initialize(){
+    public void initialize() throws FileNotFoundException {
         DataService dataService = DataService.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         // ROOT OF THE LIST
         GridPane root = new GridPane();
         root.setPadding(new Insets(10));
-        root.prefWidthProperty().bind(mainPane.widthProperty().subtract(20));
+        root.prefWidthProperty().bind(mainPane.widthProperty().subtract(10));
         root.setHgap(20);
         root.setVgap(40);
 
@@ -42,6 +47,18 @@ public class DashboardController {
         List<Trip> tripList = dataService.getTripList();
         for (int i = 0; i < tripList.size(); i++) {
             Trip trip = tripList.get(i);
+
+            // TRIP IMAGE
+            InputStream stream = new FileInputStream("./data/images/" + trip.getId() + ".jpg");
+            Image image = new Image(stream);
+            ImageView imageView = new ImageView();
+            imageView.setImage(image);
+            //Setting the image view parameters
+            imageView.setX(10);
+            imageView.setY(10);
+            imageView.setFitHeight(50);
+            imageView.setPreserveRatio(true);
+            root.add(imageView, 0, i, 1, 1);
 
             // TRIP NAME & LOCATION
             VBox tripGeneralInfo = new VBox();
@@ -51,7 +68,7 @@ public class DashboardController {
             tripLocationText.getStyleClass().add("h5");
             HBox tripLocation = new HBox(new FontIcon("fas-map-marker-alt"), tripLocationText);
             tripGeneralInfo.getChildren().addAll(tripName, tripLocation);
-            root.add(tripGeneralInfo, 0, i, 1, 1);
+            root.add(tripGeneralInfo, 1, i, 1, 1);
             GridPane.setHgrow(tripGeneralInfo, Priority.ALWAYS);
 
             // TRIP START & END
@@ -60,11 +77,11 @@ public class DashboardController {
                     " - " +
                     dateFormat.format(trip.getEndDate())
             );
-            root.add(tripPeriod, 1, i, 1, 1);
+            root.add(tripPeriod, 2, i, 1, 1);
 
             // TRIP MAX PEOPLE
             Label tripMaxPeople = new Label(trip.getMaxPeople() + " Personne(s)");
-            root.add(tripMaxPeople, 2, i, 1, 1);
+            root.add(tripMaxPeople, 3, i, 1, 1);
 
 
             // TRIP PRICE
@@ -75,12 +92,12 @@ public class DashboardController {
             price.getStyleClass().setAll("h4", "text-info");
             Label priceSuffix = new Label("par personne");
             tripPrice.getChildren().addAll(pricePrefix, price, priceSuffix);
-            root.add(tripPrice, 3, i, 1, 1);
+            root.add(tripPrice, 4, i, 1, 1);
 
             // INFO BUTTON
             Button infoButton = new Button("En savoir +");
             infoButton.getStyleClass().setAll("btn", "btn-success");
-            root.add(infoButton, 4, i, 1, 1);
+            root.add(infoButton, 5, i, 1, 1);
 
 //            // HORIZONTAL SEPARATORS
 //            root.add(new Separator(Orientation.HORIZONTAL), 0, i+1, 1, 1);
