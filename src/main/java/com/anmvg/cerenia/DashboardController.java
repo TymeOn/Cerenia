@@ -5,9 +5,7 @@ import com.anmvg.cerenia.models.Trip;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -18,6 +16,9 @@ public class DashboardController {
 
     @FXML
     private ScrollPane mainPane;
+
+    @FXML
+    private Spinner<Integer> peopleSpinner;
 
     public void initialize(){
         DataService dataService = DataService.getInstance();
@@ -87,6 +88,10 @@ public class DashboardController {
         mainPane.setContent(root);
         mainPane.setPannable(true);
         mainPane.getStyleClass().add("panel-primary");
+
+        // Configure the Spinner with values of 1 - 100
+        SpinnerValueFactory<Integer> peopleValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,100, 1);
+        peopleSpinner.setValueFactory(peopleValueFactory);
     }
 
 }
