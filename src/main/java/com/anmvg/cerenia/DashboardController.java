@@ -2,15 +2,22 @@ package com.anmvg.cerenia;
 
 import com.anmvg.cerenia.models.Comment;
 import com.anmvg.cerenia.models.Trip;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.*;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class DashboardController {
 
@@ -23,48 +30,42 @@ public class DashboardController {
     public void initialize(){
         DataService dataService = DataService.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Region spacer = new Region();
-        spacer.setMinWidth(Region.USE_PREF_SIZE);
 
         // ROOT OF THE LIST
-        VBox root = new VBox();
-        root.setSpacing(10);
+        GridPane root = new GridPane();
         root.setPadding(new Insets(10));
+        root.prefWidthProperty().bind(mainPane.widthProperty().subtract(20));
+        root.setHgap(20);
+        root.setVgap(40);
 
-        for (Trip trip : dataService.getTripList()) {
-            // TRIP LINE
-            HBox line = new HBox();
-            line.setSpacing(10);
-            line.setPadding(new Insets(10));
-            line.setAlignment(Pos.CENTER_LEFT);
-            line.setHgrow(spacer, Priority.ALWAYS);
+        // TRIP ITERATION
+        List<Trip> tripList = dataService.getTripList();
+        for (int i = 0; i < tripList.size(); i++) {
+            Trip trip = tripList.get(i);
 
             // TRIP NAME & LOCATION
             VBox tripGeneralInfo = new VBox();
-
             Label tripName = new Label(trip.getName());
             tripName.getStyleClass().add("h3");
-
             Label tripLocationText = new Label(" " + trip.getCity() + ", " + trip.getCountry());
             tripLocationText.getStyleClass().add("h5");
             HBox tripLocation = new HBox(new FontIcon("fas-map-marker-alt"), tripLocationText);
-
             tripGeneralInfo.getChildren().addAll(tripName, tripLocation);
-            line.getChildren().add(tripGeneralInfo);
+            root.add(tripGeneralInfo, 0, i, 1, 1);
+            GridPane.setHgrow(tripGeneralInfo, Priority.ALWAYS);
 
             // TRIP START & END
             Label tripPeriod = new Label(
-                dateFormat.format(trip.getStartDate()) +
-                " - " +
-                dateFormat.format(trip.getEndDate())
+                    dateFormat.format(trip.getStartDate()) +
+                    " - " +
+                    dateFormat.format(trip.getEndDate())
             );
-            line.getChildren().add(tripPeriod);
+            root.add(tripPeriod, 1, i, 1, 1);
 
             // TRIP MAX PEOPLE
             Label tripMaxPeople = new Label(trip.getMaxPeople() + " Personne(s)");
-            line.getChildren().add(tripMaxPeople);
+            root.add(tripMaxPeople, 2, i, 1, 1);
 
-            line.getChildren().add(spacer);
 
             // TRIP PRICE
             VBox tripPrice = new VBox();
@@ -74,15 +75,19 @@ public class DashboardController {
             price.getStyleClass().setAll("h4", "text-info");
             Label priceSuffix = new Label("par personne");
             tripPrice.getChildren().addAll(pricePrefix, price, priceSuffix);
-            line.getChildren().add(tripPrice);
+            root.add(tripPrice, 3, i, 1, 1);
 
             // INFO BUTTON
             Button infoButton = new Button("En savoir +");
             infoButton.getStyleClass().setAll("btn", "btn-success");
-            line.getChildren().add(infoButton);
+            root.add(infoButton, 4, i, 1, 1);
 
-            // ADDING THE LINE
-            root.getChildren().add(line);
+//            // HORIZONTAL SEPARATORS
+//            root.add(new Separator(Orientation.HORIZONTAL), 0, i+1, 1, 1);
+//            root.add(new Separator(Orientation.HORIZONTAL), 1, i+1, 1, 1);
+//            root.add(new Separator(Orientation.HORIZONTAL), 2, i+1, 1, 1);
+//            root.add(new Separator(Orientation.HORIZONTAL), 3, i+1, 1, 1);
+//            root.add(new Separator(Orientation.HORIZONTAL), 4, i+1, 1, 1);
         }
 
         mainPane.setContent(root);
