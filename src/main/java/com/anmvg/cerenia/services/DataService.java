@@ -1,4 +1,4 @@
-package com.anmvg.cerenia;
+package com.anmvg.cerenia.services;
 
 import com.anmvg.cerenia.models.Comment;
 import com.anmvg.cerenia.models.Reservation;

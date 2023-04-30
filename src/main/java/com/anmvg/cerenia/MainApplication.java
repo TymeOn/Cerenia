@@ -4,6 +4,7 @@ import com.anmvg.cerenia.models.Comment;
 import com.anmvg.cerenia.models.Reservation;
 import com.anmvg.cerenia.models.Trip;
 import com.anmvg.cerenia.models.User;
+import com.anmvg.cerenia.services.DataService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

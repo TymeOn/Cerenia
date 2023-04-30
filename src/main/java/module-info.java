@@ -13,4 +13,6 @@ module com.anmvg.cerenia {
     opens com.anmvg.cerenia to javafx.fxml;
     exports com.anmvg.cerenia;
     exports com.anmvg.cerenia.models;
+    exports com.anmvg.cerenia.services;
+    opens com.anmvg.cerenia.services to javafx.fxml;
 }
