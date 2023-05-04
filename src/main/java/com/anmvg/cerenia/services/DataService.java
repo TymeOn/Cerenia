@@ -34,9 +34,7 @@ public class DataService {
     // the service constructor, fetching the initial data
     private DataService() {
         try {
-            fetchUsers();
-            fetchTrips();
-            fetchReservations();
+            fetchAll();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,6 +67,12 @@ public class DataService {
         return json;
     }
 
+    // fetching all the data
+    public void fetchAll() {
+        fetchUsers();
+        fetchTrips();
+        fetchReservations();
+    }
 
     // fetching all the users from the local json
     private void fetchUsers() {
@@ -210,6 +214,50 @@ public class DataService {
     // tripList getter
     public List<Trip> getTripList() {
         return tripList;
+    }
+
+    // tripList search function
+    public List<Trip> searchTripList(String destination, Date start, Date end, int nbPeople) {
+        List<Trip> resultList = new ArrayList<>();
+
+        for (Trip trip : tripList) {
+            boolean match = true;
+
+            if (!destination.isEmpty()) {
+                for (String word : destination.split(" ")) {
+                    if (word.length() > 1) {
+                        match = (
+                                (trip.getName().toLowerCase().contains(word.toLowerCase())) ||
+                                (trip.getCountry().toLowerCase().contains(word.toLowerCase())) ||
+                                (trip.getCity().toLowerCase().contains(word.toLowerCase()))
+                        );
+                        if (match) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (start != null && match) {
+                match = (start.before(trip.getStartDate()) || start.equals(trip.getStartDate()));
+            }
+
+            if (end != null && match) {
+                System.out.println(end);
+                System.out.println(trip.getEndDate());
+                match = (end.after(trip.getEndDate())) || end.equals(trip.getEndDate());
+            }
+
+            if (nbPeople > 1 && match) {
+                match = (trip.getMaxPeople() >= nbPeople);
+            }
+
+            if (match) {
+                resultList.add(trip);
+            }
+        }
+
+        return resultList;
     }
 
     // reservationList getter

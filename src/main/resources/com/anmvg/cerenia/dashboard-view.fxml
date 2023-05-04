@@ -34,11 +34,11 @@
          <Pane prefWidth="150.0" />
          <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
             <children>
-               <Label text="Destination">
+               <Label text="Séjour, destination, etc.">
                   <font>
                      <Font size="13.0" />
                   </font></Label>
-               <TextField minHeight="30.0">
+               <TextField fx:id="destinationInput" minHeight="30.0">
                   <font>
                      <Font size="14.0" />
                   </font></TextField>
@@ -51,7 +51,7 @@
                   <font>
                      <Font size="13.0" />
                   </font></Label>
-               <DatePicker minHeight="30.0" />
+               <DatePicker fx:id="startDateInput" minHeight="30.0" />
             </children>
          </VBox>
          <Pane prefWidth="30.0" />
@@ -61,8 +61,7 @@
                   <font>
                      <Font size="13.0" />
                   </font></Label>
-               <Pane prefHeight="9.0" prefWidth="142.0" />
-               <DatePicker minHeight="30.0" />
+               <DatePicker fx:id="endDateInput" minHeight="30.0" />
             </children>
          </VBox>
          <Pane prefWidth="50.0" />
@@ -76,17 +75,18 @@
             </children>
          </VBox>
          <Pane prefWidth="50.0" />
-         <VBox alignment="CENTER_LEFT" prefWidth="135.0">
+         <VBox alignment="CENTER_LEFT" prefWidth="120.0">
             <children>
                <Pane prefHeight="25.0" />
-               <Button fx:id="searchButton" maxWidth="135.0" mnemonicParsing="false" text="Rechercher">
+               <Button fx:id="cancelSearchButton" maxWidth="120.0" mnemonicParsing="false" text=" Annuler" textAlignment="CENTER">
                   <styleClass>
                      <String fx:value="btn" />
-                     <String fx:value="btn-default" />
-                  </styleClass></Button>
+                     <String fx:value="btn-danger" />
+                  </styleClass>
+               </Button>
             </children>
          </VBox>
-         <Pane prefWidth="130.0" />
+         <Pane prefWidth="150.0" />
          <VBox alignment="CENTER" prefWidth="150.0">
             <children>
                <Pane prefHeight="25.0" />

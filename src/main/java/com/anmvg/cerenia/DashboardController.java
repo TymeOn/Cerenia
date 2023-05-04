@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 public class DashboardController {
@@ -37,31 +39,88 @@ public class DashboardController {
     private Button refreshButton;
 
     @FXML
+    private TextField destinationInput;
+
+    @FXML
+    private DatePicker startDateInput;
+
+    @FXML
+    private DatePicker endDateInput;
+
+    @FXML
     private Spinner<Integer> peopleSpinner;
 
     @FXML
-    private Button searchButton;
+    private Button cancelSearchButton;
 
     @FXML
     private SplitMenuButton loginButton;
 
+
+    // Dashboard initialization
     public void initialize() throws FileNotFoundException {
 
         // REFRESH BUTTON
         refreshButton.setGraphic(new FontIcon("fa-refresh:8:WHITE"));
         refreshButton.setOnAction(event -> {
             try {
-                this.displayTrips();
+                DataService.getInstance().fetchAll();
+                this.resetSearchAndDisplay();
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
         });
 
-        // SEARCH BUTTON
-        searchButton.setGraphic(new FontIcon("fa-search"));
-        searchButton.setOnAction(event -> {
+        // DESTINATION SEARCH INPUT
+        destinationInput.setOnKeyReleased(event -> {
+            if (destinationInput.getText().length() >= 2) {
+                try {
+                    this.searchTrips();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (destinationInput.getText().length() == 0) {
+                DataService dataService = DataService.getInstance();
+                try {
+                    this.displayTrips(dataService.getTripList());
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        // START DATE SEARCH INPUT
+        startDateInput.setOnAction(event -> {
             try {
-                this.displayTrips();
+                this.searchTrips();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        // END DATE SEARCH INPUT
+        endDateInput.setOnAction(event -> {
+            try {
+                this.searchTrips();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        // PEOPLE NUMBER SEARCH INPUT
+        peopleSpinner.valueProperty().addListener(event -> {
+            try {
+                this.searchTrips();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        // CANCEL SEARCH BUTTON
+        cancelSearchButton.setGraphic(new FontIcon("fa-close:8:WHITE"));
+        cancelSearchButton.setOnAction(event -> {
+            try {
+                this.resetSearchAndDisplay();
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -117,15 +176,17 @@ public class DashboardController {
         }
 
         // DISPLAY THE LIST OF TRIPS
-        this.displayTrips();
+        DataService dataService = DataService.getInstance();
+        this.displayTrips(dataService.getTripList());
 
-        // Configure the Spinner with values of 1 - 100
-        SpinnerValueFactory<Integer> peopleValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,100, 1);
+        // SPINNER 1-100 CONFIGURATION
+        SpinnerValueFactory<Integer> peopleValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
         peopleSpinner.setValueFactory(peopleValueFactory);
     }
 
-    public void displayTrips() throws FileNotFoundException {
-        DataService dataService = DataService.getInstance();
+
+    // Display a provided list of trips
+    public void displayTrips(List<Trip> tripList) throws FileNotFoundException {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         // ROOT OF THE LIST
@@ -136,7 +197,6 @@ public class DashboardController {
         root.setVgap(40);
 
         // TRIP ITERATION
-        List<Trip> tripList = dataService.getTripList();
         for (int i = 0; i < tripList.size(); i++) {
             Trip trip = tripList.get(i);
 
@@ -190,18 +250,51 @@ public class DashboardController {
             Button infoButton = new Button("En savoir +");
             infoButton.getStyleClass().setAll("btn", "btn-success");
             root.add(infoButton, 5, i, 1, 1);
-
-//            // HORIZONTAL SEPARATORS
-//            root.add(new Separator(Orientation.HORIZONTAL), 0, i+1, 1, 1);
-//            root.add(new Separator(Orientation.HORIZONTAL), 1, i+1, 1, 1);
-//            root.add(new Separator(Orientation.HORIZONTAL), 2, i+1, 1, 1);
-//            root.add(new Separator(Orientation.HORIZONTAL), 3, i+1, 1, 1);
-//            root.add(new Separator(Orientation.HORIZONTAL), 4, i+1, 1, 1);
         }
 
         mainPane.setContent(root);
         mainPane.setPannable(true);
         mainPane.getStyleClass().add("panel-primary");
+    }
+
+
+    // Search for trips and display them
+    private void searchTrips() throws FileNotFoundException {
+        Date start = null;
+        if (startDateInput.getValue() != null) {
+            start = java.util.Date.from(startDateInput.getValue()
+                    .atStartOfDay()
+                    .atZone(ZoneId.systemDefault())
+                    .toInstant());
+        }
+
+        Date end = null;
+        if (endDateInput.getValue() != null) {
+            end = java.util.Date.from(endDateInput.getValue()
+                    .atTime(23, 59, 59)
+                    .atZone(ZoneId.systemDefault())
+                    .toInstant());
+        }
+
+        DataService dataService = DataService.getInstance();
+        this.displayTrips(dataService.searchTripList(
+                destinationInput.getText(),
+                start,
+                end,
+                peopleSpinner.getValue()
+        ));
+    }
+
+
+    // Reset the search parammeter and display all trips
+    private void resetSearchAndDisplay() throws FileNotFoundException {
+        destinationInput.clear();
+        startDateInput.setValue(null);
+        endDateInput.setValue(null);
+        peopleSpinner.getValueFactory().setValue(1);
+        destinationInput.clear();
+        DataService dataService = DataService.getInstance();
+        this.displayTrips(dataService.getTripList());
     }
 
 }
