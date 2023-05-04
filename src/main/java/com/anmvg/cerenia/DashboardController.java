@@ -250,13 +250,29 @@ public class DashboardController {
             Button infoButton = new Button("En savoir +");
             infoButton.getStyleClass().setAll("btn", "btn-success");
             root.add(infoButton, 5, i, 1, 1);
+
+            infoButton.setOnAction(event -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("trip-infos-view.fxml"));
+                    Stage stage = (Stage) infoButton.getScene().getWindow();
+                    Scene scene = new Scene(loader.load(), 1280, 720);
+                    scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                    stage.setScene(scene);
+
+                    TripDetailsController tripDetailsController = loader.getController();
+                    tripDetailsController.initData(trip.getId());
+
+                    stage.show();
+                } catch (IOException io) {
+                    io.printStackTrace();
+                }
+            });
         }
 
         mainPane.setContent(root);
         mainPane.setPannable(true);
         mainPane.getStyleClass().add("panel-primary");
     }
-
 
     // Search for trips and display them
     private void searchTrips() throws FileNotFoundException {
@@ -296,5 +312,4 @@ public class DashboardController {
         DataService dataService = DataService.getInstance();
         this.displayTrips(dataService.getTripList());
     }
-
 }
