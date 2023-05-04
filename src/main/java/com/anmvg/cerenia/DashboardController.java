@@ -27,8 +27,10 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 
 public class DashboardController {
 
@@ -56,104 +58,69 @@ public class DashboardController {
     @FXML
     private SplitMenuButton loginButton;
 
+    @FXML
+    private Button previousPageButton;
+
+    @FXML
+    private Label currentPageLabel;
+
+    @FXML
+    private Label totalPageLabel;
+
+    @FXML
+    private Button nextPageButton;
+
+    private int pageNumber = 0;
+    private int totalPageNumber = 0;
+    private final int ITEMS_PER_PAGE = 10;
+
+    private List<Trip> lastTripList = new ArrayList<>();
+
 
     // Dashboard initialization
-    public void initialize() throws FileNotFoundException {
+    public void initialize() {
 
         // REFRESH BUTTON
         refreshButton.setGraphic(new FontIcon("fa-refresh:8:WHITE"));
         refreshButton.setOnAction(event -> {
-            try {
-                DataService.getInstance().fetchAll();
-                this.resetSearchAndDisplay();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            DataService.getInstance().fetchAll();
+            this.resetSearchAndDisplay();
         });
 
         // DESTINATION SEARCH INPUT
         destinationInput.setOnKeyReleased(event -> {
             if (destinationInput.getText().length() >= 2) {
-                try {
-                    this.searchTrips();
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
+                this.searchTrips();
             } else if (destinationInput.getText().length() == 0) {
-                DataService dataService = DataService.getInstance();
-                try {
-                    this.displayTrips(dataService.getTripList());
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
+                List<Trip> trips = DataService.getInstance().getTripList();
+                displayTotalPageNumber(trips.size());
+                this.displayTrips(trips);
             }
         });
 
         // START DATE SEARCH INPUT
-        startDateInput.setOnAction(event -> {
-            try {
-                this.searchTrips();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        startDateInput.setOnAction(event -> this.searchTrips());
 
         // END DATE SEARCH INPUT
-        endDateInput.setOnAction(event -> {
-            try {
-                this.searchTrips();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        endDateInput.setOnAction(event -> this.searchTrips());
 
         // PEOPLE NUMBER SEARCH INPUT
-        peopleSpinner.valueProperty().addListener(event -> {
-            try {
-                this.searchTrips();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        peopleSpinner.valueProperty().addListener(event -> this.searchTrips());
 
         // CANCEL SEARCH BUTTON
         cancelSearchButton.setGraphic(new FontIcon("fa-close:8:WHITE"));
-        cancelSearchButton.setOnAction(event -> {
-            try {
-                this.resetSearchAndDisplay();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        cancelSearchButton.setOnAction(event -> this.resetSearchAndDisplay());
 
         // LOGIN BUTTON & ITEMS
         loginButton.setGraphic(new FontIcon("fa-user:8:WHITE"));
 
         MenuItem loginItem = new MenuItem("Connexion");
-        loginItem.setOnAction(event -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                Scene scene = new Scene(loader.load(), 1280, 720);
-                scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-                stage.setScene(scene);
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
-        });
+        loginItem.setOnAction(event -> this.navigateTo("login-view.fxml"));
 
         MenuItem logoutItem = new MenuItem("Déconnexion");
         logoutItem.setOnAction(event -> {
             AuthService.getInstance().logout();
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                Scene scene = new Scene(loader.load(), 1280, 720);
-                scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-                stage.setScene(scene);
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
+            this.navigateTo("dashboard-view.fxml");
         });
 
         MenuItem cartItem = new MenuItem("Mon panier");
@@ -176,17 +143,67 @@ public class DashboardController {
         }
 
         // DISPLAY THE LIST OF TRIPS
-        DataService dataService = DataService.getInstance();
-        this.displayTrips(dataService.getTripList());
+        List<Trip> trips = DataService.getInstance().getTripList();
+        displayTotalPageNumber(trips.size());
+        this.displayTrips(trips);
 
         // SPINNER 1-100 CONFIGURATION
         SpinnerValueFactory<Integer> peopleValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
         peopleSpinner.setValueFactory(peopleValueFactory);
+
+        previousPageButton.setGraphic(new FontIcon("fas-chevron-left"));
+        previousPageButton.setOnAction(event -> {
+            if (pageNumber > 0) {
+                pageNumber--;
+                currentPageLabel.setText(Integer.toString(pageNumber + 1));
+                mainPane.setVvalue(0);
+                this.displayTrips(lastTripList);
+
+                if (pageNumber == 0) {
+                    previousPageButton.setDisable(true);
+                }
+
+                if (pageNumber < (totalPageNumber - 1)) {
+                    nextPageButton.setDisable(false);
+                }
+            }
+        });
+
+        if (totalPageNumber > 1) {
+            nextPageButton.setDisable(false);
+        }
+
+        nextPageButton.setGraphic(new FontIcon("fas-chevron-right"));
+        nextPageButton.setOnAction(event -> {
+            if (pageNumber > -1) {
+                pageNumber++;
+                currentPageLabel.setText(Integer.toString(pageNumber + 1));
+                mainPane.setVvalue(0);
+                this.displayTrips(lastTripList);
+
+                if (pageNumber == totalPageNumber - 1) {
+                    nextPageButton.setDisable(true);
+                }
+
+                if (pageNumber > 0) {
+                    previousPageButton.setDisable(false);
+                }
+            }
+        });
+
+        currentPageLabel.setText(Integer.toString(pageNumber + 1));
     }
 
 
     // Display a provided list of trips
-    public void displayTrips(List<Trip> tripList) throws FileNotFoundException {
+    public void displayTrips(List<Trip> globalTripList) {
+        lastTripList = globalTripList;
+
+        int startIndex = pageNumber * (ITEMS_PER_PAGE);
+        int endIndex = (Math.min((startIndex + ITEMS_PER_PAGE), globalTripList.size()));
+
+        List<Trip> tripList = globalTripList.subList(startIndex, endIndex);
+
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         // ROOT OF THE LIST
@@ -201,7 +218,12 @@ public class DashboardController {
             Trip trip = tripList.get(i);
 
             // TRIP IMAGE
-            InputStream stream = new FileInputStream("./data/images/" + trip.getId() + ".jpg");
+            InputStream stream;
+            try {
+                stream = new FileInputStream("./data/images/" + trip.getId() + ".jpg");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             Image image = new Image(stream);
             ImageView imageView = new ImageView();
             imageView.setImage(image);
@@ -275,7 +297,7 @@ public class DashboardController {
     }
 
     // Search for trips and display them
-    private void searchTrips() throws FileNotFoundException {
+    private void searchTrips() {
         Date start = null;
         if (startDateInput.getValue() != null) {
             start = java.util.Date.from(startDateInput.getValue()
@@ -292,24 +314,62 @@ public class DashboardController {
                     .toInstant());
         }
 
-        DataService dataService = DataService.getInstance();
-        this.displayTrips(dataService.searchTripList(
+        List<Trip> trips = DataService.getInstance().searchTripList(
                 destinationInput.getText(),
                 start,
                 end,
                 peopleSpinner.getValue()
-        ));
+        );
+        displayTotalPageNumber(trips.size());
+        this.resetPagination();
+        this.displayTrips(trips);
     }
 
 
-    // Reset the search parammeter and display all trips
-    private void resetSearchAndDisplay() throws FileNotFoundException {
+    // Reset the search parameter and display all trips
+    private void resetSearchAndDisplay() {
         destinationInput.clear();
         startDateInput.setValue(null);
         endDateInput.setValue(null);
         peopleSpinner.getValueFactory().setValue(1);
         destinationInput.clear();
-        DataService dataService = DataService.getInstance();
-        this.displayTrips(dataService.getTripList());
+
+        List<Trip> trips = DataService.getInstance().getTripList();
+        displayTotalPageNumber(trips.size());
+        this.resetPagination();
+        this.displayTrips(trips);
+    }
+
+
+    // Utility function that computes and displays the total number of pages
+    private void displayTotalPageNumber(int nbItems) {
+        totalPageNumber = (int) Math.ceil(nbItems / (double) ITEMS_PER_PAGE);
+        totalPageLabel.setText(Integer.toString(totalPageNumber));
+    }
+
+
+    // Utility function for properly resetting the navigation
+    private void resetPagination() {
+        this.pageNumber = 0;
+        currentPageLabel.setText(Integer.toString(pageNumber + 1));
+        mainPane.setVvalue(0);
+        previousPageButton.setDisable(true);
+        if (totalPageNumber > 1) {
+            nextPageButton.setDisable(false);
+        }
+    }
+
+
+    // Utility function for navigating between pages
+    private void navigateTo(String source) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(source));
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            Scene scene = new Scene(loader.load(), 1280, 720);
+            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
     }
 }

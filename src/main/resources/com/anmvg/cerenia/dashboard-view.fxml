@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anmvg.cerenia.DashboardController">
+<VBox alignment="CENTER" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anmvg.cerenia.DashboardController">
     <padding>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
@@ -75,10 +75,10 @@
             </children>
          </VBox>
          <Pane prefWidth="50.0" />
-         <VBox alignment="CENTER_LEFT" prefWidth="120.0">
+         <VBox alignment="CENTER_LEFT" prefWidth="130.0">
             <children>
                <Pane prefHeight="25.0" />
-               <Button fx:id="cancelSearchButton" maxWidth="120.0" mnemonicParsing="false" text=" Annuler" textAlignment="CENTER">
+               <Button fx:id="cancelSearchButton" maxWidth="130.0" mnemonicParsing="false" text=" Annuler" textAlignment="CENTER">
                   <styleClass>
                      <String fx:value="btn" />
                      <String fx:value="btn-danger" />
@@ -107,5 +107,41 @@
      <content>
        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
      </content>
+      <VBox.margin>
+         <Insets bottom="10.0" top="20.0" />
+      </VBox.margin>
    </ScrollPane>
+   <HBox alignment="CENTER">
+      <children>
+         <Button fx:id="previousPageButton" disable="true" mnemonicParsing="false" text="Précédent">
+            <HBox.margin>
+               <Insets right="50.0" />
+            </HBox.margin>
+            <styleClass>
+               <String fx:value="btn" />
+               <String fx:value="btn-default" />
+            </styleClass>
+         </Button>
+         <Label fx:id="currentPageLabel" text="0">
+            <HBox.margin>
+               <Insets right="5.0" />
+            </HBox.margin>
+         </Label>
+         <Label text="/" />
+         <Label fx:id="totalPageLabel" text="0">
+            <HBox.margin>
+               <Insets left="5.0" />
+            </HBox.margin>
+         </Label>
+         <Button fx:id="nextPageButton" contentDisplay="RIGHT" disable="true" mnemonicParsing="false" text="Suivant">
+            <HBox.margin>
+               <Insets left="50.0" />
+            </HBox.margin>
+            <styleClass>
+               <String fx:value="btn" />
+               <String fx:value="btn-default" />
+            </styleClass>
+         </Button>
+      </children>
+   </HBox>
 </VBox>
