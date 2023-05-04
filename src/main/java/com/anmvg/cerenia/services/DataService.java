@@ -229,7 +229,8 @@ public class DataService {
                         match = (
                                 (trip.getName().toLowerCase().contains(word.toLowerCase())) ||
                                 (trip.getCountry().toLowerCase().contains(word.toLowerCase())) ||
-                                (trip.getCity().toLowerCase().contains(word.toLowerCase()))
+                                (trip.getCity().toLowerCase().contains(word.toLowerCase())) ||
+                                (trip.getDescription().toLowerCase().contains(word.toLowerCase()))
                         );
                         if (match) {
                             break;
