@@ -4,6 +4,7 @@ import com.anmvg.cerenia.models.Trip;
 import com.anmvg.cerenia.models.User;
 import com.anmvg.cerenia.services.AuthService;
 import com.anmvg.cerenia.services.DataService;
+import com.anmvg.cerenia.services.ParameterService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -70,7 +71,7 @@ public class TripDetailsController {
     @FXML
     private Spinner<Integer> numberReservation;
 
-    static int id;
+    private static int id;
 
     User user;
 
@@ -82,11 +83,8 @@ public class TripDetailsController {
 
         User currentUser = AuthService.getInstance().getUser();
 
-        DataService dataService = DataService.getInstance();
-        List<Trip> tripList = dataService.getTripList();
-
         // CURRENT TRIP
-        Trip trip = tripList.get(this.id);
+        Trip trip = DataService.getInstance().getTrip(ParameterService.getInstance().getIdParam());
 
         // TRIP NAME & LOCATION
         tripName.setText(trip.getName());
@@ -138,6 +136,6 @@ public class TripDetailsController {
     }
 
     public void initData (Integer id) {
-        this.id = id;
+        TripDetailsController.id = id;
     }
 }

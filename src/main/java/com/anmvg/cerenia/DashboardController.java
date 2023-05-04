@@ -4,6 +4,7 @@ import com.anmvg.cerenia.models.Trip;
 import com.anmvg.cerenia.models.User;
 import com.anmvg.cerenia.services.AuthService;
 import com.anmvg.cerenia.services.DataService;
+import com.anmvg.cerenia.services.ParameterService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -274,20 +275,8 @@ public class DashboardController {
             root.add(infoButton, 5, i, 1, 1);
 
             infoButton.setOnAction(event -> {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("trip-infos-view.fxml"));
-                    Stage stage = (Stage) infoButton.getScene().getWindow();
-                    Scene scene = new Scene(loader.load(), 1280, 720);
-                    scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-                    stage.setScene(scene);
-
-                    TripDetailsController tripDetailsController = loader.getController();
-                    tripDetailsController.initData(trip.getId());
-
-                    stage.show();
-                } catch (IOException io) {
-                    io.printStackTrace();
-                }
+                ParameterService.getInstance().setIdParam(trip.getId());
+                navigateTo("trip-infos-view.fxml");
             });
         }
 
