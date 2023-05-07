@@ -33,7 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 
-public class RecapController {
+public class PlanningController {
 
     @FXML
     private ScrollPane mainPane;
@@ -53,7 +53,7 @@ public class RecapController {
 
         // DISPLAY THE LIST OF TRIPS
         User currentUser = AuthService.getInstance().getUser();
-        List<Reservation> reservationList = DataService.getInstance().findReservationList(new Integer[]{1, 2, 3}, currentUser, null);
+        List<Reservation> reservationList = DataService.getInstance().findReservationList(new Integer[]{2}, null, currentUser);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         // ROOT OF THE LIST
@@ -126,7 +126,7 @@ public class RecapController {
 
             infoButton.setOnAction(event -> {
                 ParameterService.getInstance().setIdParam(trip.getId());
-                ParameterService.getInstance().setLastVisited("recap-view.fxml");
+                ParameterService.getInstance().setLastVisited("planning-view.fxml");
                 navigateTo("trip-infos-view.fxml");
             });
         }

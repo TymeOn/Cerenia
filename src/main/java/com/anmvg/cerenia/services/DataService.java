@@ -260,6 +260,19 @@ public class DataService {
         return resultList;
     }
 
+    // getting all the trips from a specific host
+    public List<Trip> getHostTripList(User host) {
+        List<Trip> resultList = new ArrayList<>();
+
+        for (Trip trip : tripList) {
+            if (Objects.equals(trip.getHost().getId(), host.getId())) {
+                resultList.add(trip);
+            }
+        }
+
+        return resultList;
+    }
+
     // reservationList getter
     public List<Reservation> getReservationList() {
         return reservationList;

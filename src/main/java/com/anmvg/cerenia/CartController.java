@@ -124,6 +124,7 @@ public class CartController {
 
             infoButton.setOnAction(event -> {
                 ParameterService.getInstance().setIdParam(trip.getId());
+                ParameterService.getInstance().setLastVisited("cart-view.fxml");
                 navigateTo("trip-infos-view.fxml");
             });
         }

@@ -84,7 +84,7 @@ public class TripInfosController {
     public void initialize() throws FileNotFoundException {
         backButton.setGraphic(new FontIcon("fa-arrow-circle-left"));
         backButton.setOnAction(event -> {
-            navigateToDashboard();
+            navigateTo(ParameterService.getInstance().getLastVisited());
         });
 
         User currentUser = AuthService.getInstance().getUser();
@@ -194,9 +194,9 @@ public class TripInfosController {
         commentPage.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
-    public void navigateToDashboard() {
+    private void navigateTo(String source) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(source));
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene scene = new Scene(loader.load(), 1280, 720);
             scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
