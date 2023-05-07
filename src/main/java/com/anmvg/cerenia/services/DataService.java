@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.io.IOUtils;
 
@@ -23,9 +24,9 @@ public class DataService {
     private static DataService instance;
 
     // fetching all the users from the local json
-    private List<User> userList;
-    private List<Trip> tripList;
-    private List<Reservation> reservationList;
+    private static List<User> userList;
+    private static List<Trip> tripList;
+    private static List<Reservation> reservationList;
 
     // constants for finding the data files
     private final String DATA_PATH = "./data/";
@@ -264,6 +265,38 @@ public class DataService {
     // reservationList getter
     public List<Reservation> getReservationList() {
         return reservationList;
+    }
+
+    // reservationList search function
+    public List<Reservation> findReservationList(Integer[] states, User customer, User host) {
+        List<Reservation> resultList = new ArrayList<>();
+
+        for (Reservation reservation : reservationList) {
+            boolean match = true;
+
+            if (states.length > 0) {
+                for (Integer s : states) {
+                    match = (Objects.equals(reservation.getState(), s));
+                    if (match) {
+                        break;
+                    }
+                }
+            }
+
+            if (customer != null && match) {
+                match = (Objects.equals(reservation.getUser().getId(), customer.getId()));
+            }
+
+            if (host != null && match) {
+                match = (Objects.equals(reservation.getTrip().getHost().getId(), host.getId()));
+            }
+
+            if (match) {
+                resultList.add(reservation);
+            }
+        }
+
+        return resultList;
     }
 
     // getting a user by id

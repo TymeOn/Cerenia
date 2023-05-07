@@ -8,6 +8,8 @@ public class ParameterService {
 
     private static int idParam;
 
+    private static String lastVisited;
+
     // the service constructor, fetching the initial data
     private ParameterService() {}
 
@@ -22,4 +24,8 @@ public class ParameterService {
     // getter and setter for the id param static value
     public int getIdParam() { return idParam; }
     public void setIdParam(int idParam) { ParameterService.idParam = idParam;}
+
+    // getter and setter for the id param static value
+    public String getLastVisited() { return lastVisited; }
+    public void setLastVisited(String lastVisited) { ParameterService.lastVisited = lastVisited;}
 }

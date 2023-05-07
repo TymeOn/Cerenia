@@ -125,6 +125,10 @@ public class DashboardController {
         });
 
         MenuItem cartItem = new MenuItem("Mon panier");
+        cartItem.setOnAction(event -> {
+            this.navigateTo("cart-view.fxml");
+        });
+
         MenuItem historyItem = new MenuItem("Historique");
 
         MenuItem requestsItem = new MenuItem("Demandes");
