@@ -189,6 +189,9 @@ public class TripInfosController {
         commentPage.setContent(root);
         commentPage.setPannable(true);
         commentPage.getStyleClass().add("panel-primary");
+
+        // Horizontal scroll bar is only displayed when needed
+        commentPage.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
     public void navigateToDashboard() {
