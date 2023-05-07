@@ -110,5 +110,341 @@
         "createdAt": "2023-04-03 16:35:07"
       }
     ]
+  },
+  {
+    "id": 6,
+    "name": "Découvrir les merveilles du Machu Picchu",
+    "hostId": 4,
+    "city": "Cusco",
+    "country": "Peru",
+    "startDate": "2023-08-01 00:00:00",
+    "endDate": "2023-08-07 23:59:59",
+    "price": 1500,
+    "maxPeople": 15,
+    "description": "Découvrez la beauté du Machu Picchu et des montagnes andines environnantes avec un guide local compétent. Ce voyage comprend une randonnée jusqu'au sommet du Machu Picchu et l'exploration des anciennes ruines incas.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 3,
+        "rating": 4,
+        "text": "Ce voyage est idéal pour les voyageurs qui s'intéressent à l'histoire et aux civilisations anciennes. Le voyage vous emmène à l'un des sites les plus emblématiques d'Amérique du Sud, le Machu Picchu, où vous pourrez explorer les impressionnantes ruines de la civilisation inca. Vous visiterez également la Vallée sacrée des Incas, où vous pourrez admirer la beauté naturelle époustouflante de la région et découvrir l'histoire et la culture des Incas.",
+        "createdAt": "2023-04-03 16:35:07"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Safari en Afrique du Sud",
+    "hostId": 4,
+    "city": "Johannesburg",
+    "country": "Afrique du Sud",
+    "startDate": "2023-10-01 00:00:00",
+    "endDate": "2023-10-10 23:59:59",
+    "price": 3500,
+    "maxPeople": 12,
+    "description": "Embarquez pour une aventure safari inoubliable au cœur de la nature sauvage d'Afrique du Sud. Observez les lions, les éléphants, les zèbres et bien d'autres animaux lors des safaris quotidiens dans le parc national Kruger, l'une des plus grandes réserves animalières d'Afrique.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 2,
+        "rating": 4,
+        "text": "Ce voyage est idéal pour les amateurs de faune et de flore qui souhaitent vivre l'expérience d'un safari. Vous aurez l'occasion d'explorer certaines des réserves les plus célèbres d'Afrique du Sud, telles que le parc national Kruger et la réserve de Sabi Sands, où vous pourrez apercevoir les Big Five (lion, léopard, éléphant, buffle et rhinocéros) ainsi que de nombreuses autres espèces animales. Outre les safaris, vous pourrez également faire des promenades dans la brousse, observer les oiseaux et vivre des expériences culturelles.",
+        "createdAt": "2023-04-03 16:35:07"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Faire le tour des îles aux Philippines",
+    "hostId": 1,
+    "city": "Palawan",
+    "country": "Philippines",
+    "startDate": "2023-11-15 00:00:00",
+    "endDate": "2023-11-25 23:59:59",
+    "price": 2000,
+    "maxPeople": 20,
+    "description": "Explorez les eaux cristallines et les plages magnifiques de Palawan, la plus belle île des Philippines. Ce voyage comprend des excursions sur l'île, de la plongée avec masque et tuba et du camping sur la plage, sur certains des rivages les plus époustouflants du monde.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 2,
+        "rating": 4,
+        "text": "Ce voyage est idéal pour les amateurs de plage qui souhaitent explorer les magnifiques îles des Philippines. Vous visiterez certaines des plus belles îles du pays, telles que Palawan, Boracay et Siargao, où vous pourrez profiter de plages de sable blanc, d'eaux cristallines et d'une variété d'activités nautiques, telles que la plongée avec tuba et la plongée sous-marine. Vous pourrez également vous immerger dans la culture et la cuisine locales, et explorer la beauté naturelle des îles.",
+        "createdAt": "2023-04-03 16:35:07"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Retraite spirituelle à Bali",
+    "hostId": 1,
+    "city": "Ubud",
+    "country": "Bali",
+    "startDate": "2023-06-01 00:00:00",
+    "endDate": "2023-06-10 23:59:59",
+    "price": 2500,
+    "maxPeople": 10,
+    "description": "Renouez avec vous-même et avec le monde naturel grâce à une retraite spirituelle de 10 jours à Bali. Ce voyage comprend des cours quotidiens de yoga et de méditation, des excursions vers des temples sacrés et des occasions de nouer des liens avec la communauté locale balinaise.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 2,
+        "rating": 4,
+        "text": "Ce voyage est conçu pour les voyageurs qui souhaitent faire une pause dans leur vie trépidante et trouver la paix intérieure et la relaxation. Bali est connue pour son patrimoine spirituel et culturel, et ce voyage vous emmènera sur certains des sites les plus sacrés de l'île, tels que le temple Besakih et le temple Tirta Empul, où vous pourrez assister à des rituels et des cérémonies traditionnels. Vous pourrez également profiter de cours de yoga et de méditation, de soins de spa et d'une cuisine saine, tout en explorant la beauté naturelle de l'île.",
+        "createdAt": "2023-04-03 16:35:07"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Découverte de Tokyo",
+    "hostId": 1,
+    "city": "Tokyo",
+    "country": "Japon",
+    "startDate": "2023-09-01 00:00:00",
+    "endDate": "2023-09-07 23:59:59",
+    "price": 2500,
+    "maxPeople": 8,
+    "description": "Explorez la ville animée de Tokyo lors de ce voyage de sept jours. Découvrez la culture japonaise à travers des visites de temples, des dégustations culinaires et des promenades dans des quartiers emblématiques tels que Shibuya, Shinjuku et Ginza.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 2,
+        "rating": 5,
+        "text": "J'ai adoré ce voyage ! La ville de Tokyo est incroyablement fascinante, et notre guide touristique a fait un excellent travail en nous emmenant dans des endroits uniques et mémorables. J'ai particulièrement apprécié la visite du temple Meiji, la dégustation de ramen et la promenade dans le parc Yoyogi. Je recommande vivement cette expérience.",
+        "createdAt": "2023-09-08 09:30:00"
+      },
+      {
+        "id": 2,
+        "userId": 4,
+        "rating": 4,
+        "text": "Ce voyage était très bien organisé et nous avons eu l'occasion de voir beaucoup de sites intéressants en peu de temps. Les quartiers de Shibuya et Shinjuku étaient particulièrement animés et vibrants. Cependant, j'aurais aimé avoir plus de temps libre pour explorer les lieux par moi-même. Dans l'ensemble, c'était une expérience formidable.",
+        "createdAt": "2023-09-08 11:45:00"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Randonnée dans les Alpes suisses",
+    "hostId": 1,
+    "city": "Zermatt",
+    "country": "Suisse",
+    "startDate": "2023-08-15 00:00:00",
+    "endDate": "2023-08-22 23:59:59",
+    "price": 3000,
+    "maxPeople": 6,
+    "description": "Partez à l'aventure lors de cette randonnée de sept jours à travers les Alpes suisses. Admirez des paysages à couper le souffle, notamment le mont Cervin, lors de cette expérience de montagne inoubliable.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 3,
+        "rating": 5,
+        "text": "Ce voyage était tout simplement incroyable ! Les vues étaient absolument à couper le souffle et notre guide était très compétent et sympathique. Nous avons passé des journées merveilleuses en montagne, découvrant des vues incroyables et en faisant des rencontres inoubliables. La nourriture était également délicieuse. Je recommande vivement ce voyage à tous ceux qui cherchent une expérience de randonnée unique en son genre.",
+        "createdAt": "2023-08-01 08:00:00"
+      },
+      {
+        "id": 2,
+        "userId": 4,
+        "rating": 4,
+        "text": "J'ai beaucoup apprécié ce voyage, bien que certains jours aient été assez difficiles pour moi en tant que randonneur novice. Notre guide était très patient et encourageant, ce qui a rendu l'expérience beaucoup plus agréable. Les vues étaient absolument magnifiques et valaient chaque goutte de sueur versée. Les repas étaient également excellents, avec une belle variété de plats locaux. Dans l'ensemble, je recommande ce voyage à tous ceux qui cherchent une aventure en montagne avec une touche de culture locale.",
+        "createdAt": "2023-08-10 14:30:00"
+      },
+      {
+        "id": 3,
+        "userId": 5,
+        "rating": 5,
+        "text": "Ce voyage était absolument incroyable ! La randonnée était difficile mais gratifiante, avec des vues à couper le souffle tout au long du chemin. Notre guide était compétent et sympathique, et nous avons appris beaucoup de choses sur la région et la culture locale. Les repas étaient délicieux et variés, et nous avons vraiment apprécié le temps que nous avons passé ensemble en tant que groupe. Je recommande vivement ce voyage à tous ceux qui cherchent une aventure en montagne inoubliable.",
+        "createdAt": "2023-08-18 10:15:00"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Safari au Kenya",
+    "hostId": 4,
+    "city": "Nairobi",
+    "country": "Kenya",
+    "startDate": "2023-07-10 00:00:00",
+    "endDate": "2023-07-18 23:59:59",
+    "price": 5000,
+    "maxPeople": 12,
+    "description": "Découvrez la faune africaine lors d'un safari de huit jours au Kenya. Partez en Jeep à travers les parcs nationaux pour observer des lions, des éléphants, des girafes, des buffles et bien d'autres animaux dans leur habitat naturel. Vous aurez également l'occasion de rencontrer les tribus locales et de découvrir leur culture unique.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 5,
+        "rating": 5,
+        "text": "Ce voyage était absolument incroyable ! Nous avons vu des animaux que nous n'avions jamais vus auparavant, comme les léopards et les rhinocéros. Notre guide était très compétent et nous a donné des informations fascinantes sur la faune et la culture locale. Les logements étaient également très confortables et nous avons apprécié les dîners sous les étoiles. Je recommande fortement ce voyage à tous ceux qui cherchent une expérience de safari inoubliable.",
+        "createdAt": "2023-07-19 11:00:00"
+      },
+      {
+        "id": 2,
+        "userId": 4,
+        "rating": 4,
+        "text": "J'ai adoré ce voyage, mais j'aurais aimé avoir plus de temps pour observer les animaux. Nous avons parfois dû nous dépêcher pour passer d'un parc à l'autre, ce qui était un peu fatigant. Cependant, les moments où nous avons vu les animaux étaient absolument magiques et resteront gravés dans ma mémoire pour toujours.",
+        "createdAt": "2023-07-20 08:30:00"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Croisière en Méditerranée",
+    "hostId": 4,
+    "city": "Athènes",
+    "country": "Grèce",
+    "startDate": "2023-10-01 00:00:00",
+    "endDate": "2023-10-10 23:59:59",
+    "price": 4000,
+    "maxPeople": 16,
+    "description": "Naviguez à travers la Méditerranée lors de cette croisière de 10 jours qui vous emmènera à travers les plus beaux sites de la région. Découvrez les îles grecques, les villes historiques d'Italie et les plages de sable blanc de la côte française.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 5,
+        "rating": 5,
+        "text": "La croisière en Méditerranée a été l'un des meilleurs voyages que j'ai jamais faits. Les paysages étaient absolument époustouflants, les ports d'escale étaient intéressants et les activités à bord étaient nombreuses et variées. C'était vraiment une expérience inoubliable.",
+        "createdAt": "2023-11-06 10:00:00"
+      },
+      {
+        "id": 2,
+        "userId": 3,
+        "rating": 4,
+        "text": "J'ai adoré la croisière en Méditerranée. Chaque jour, nous découvrions de nouvelles villes et cultures, et j'ai particulièrement aimé la nourriture locale que nous avons pu goûter dans chaque port. Le service à bord était également exceptionnel, et j'ai apprécié chaque instant de cette croisière.  ",
+        "createdAt": "2023-11-08 14:30:00"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Escapade romantique à Paris",
+    "hostId": 1,
+    "city": "Paris",
+    "country": "France",
+    "startDate": "2023-11-01 00:00:00",
+    "endDate": "2023-11-05 23:59:59",
+    "price": 2000,
+    "maxPeople": 2,
+    "description": "Offrez-vous une escapade romantique inoubliable dans la ville de l'amour, Paris. Profitez d'un séjour de cinq jours dans un hôtel de luxe, avec des visites des sites les plus romantiques de la ville, des promenades romantiques le long de la Seine et des dégustations de vin et de fromage dans les bistrots parisiens.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 5,
+        "rating": 5,
+        "text": "Mon mari et moi avons passé un séjour absolument merveilleux à Paris grâce à cette escapade romantique. L'hôtel était incroyablement luxueux et confortable, et les visites que nous avons faites nous ont permis de découvrir des coins de Paris que nous n'aurions jamais trouvés par nous-mêmes. Nous avons également apprécié les dégustations de vin et de fromage. Je recommande vivement cette expérience pour tous les couples qui cherchent à ajouter une touche de romance à leur vie.",
+        "createdAt": "2023-11-06 10:00:00"
+      },
+      {
+        "id": 2,
+        "userId": 3,
+        "rating": 4,
+        "text": "Cette escapade romantique à Paris était une expérience fantastique dans l'ensemble. J'ai adoré le luxe de l'hôtel et les visites des sites romantiques de la ville. Cependant, j'ai trouvé que le programme était un peu trop chargé et que nous n'avions pas suffisamment de temps libre pour explorer la ville par nous-mêmes. Mais dans l'ensemble, je recommande cette escapade pour tous les couples à la recherche d'un moment romantique à Paris.",
+        "createdAt": "2023-11-08 14:30:00"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Safari dans la savane africaine",
+    "hostId": 1,
+    "city": "Arusha",
+    "country": "Tanzanie",
+    "startDate": "2023-07-01 00:00:00",
+    "endDate": "2023-07-10 23:59:59",
+    "price": 4000,
+    "maxPeople": 12,
+    "description": "Partez à la découverte de la savane africaine lors d'un safari inoubliable en Tanzanie. Découvrez la faune sauvage de l'Afrique de l'Est, avec des visites dans les parcs nationaux de Tarangire, du lac Manyara et du Serengeti. Vous pourrez également profiter de la beauté naturelle de la Tanzanie en vous relaxant sur les plages de Zanzibar.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 5,
+        "rating": 5,
+        "text": "Ce voyage était incroyable ! Nous avons vu tellement d'animaux différents, y compris les célèbres « big five » (lion, éléphant, léopard, buffle et rhinocéros). Les guides touristiques étaient très compétents et nous ont aidés à en apprendre davantage sur la faune sauvage de la région. La visite de Zanzibar était également très agréable et a offert un contraste intéressant avec la savane.",
+        "createdAt": "2023-07-12 11:30:00"
+      },
+      {
+        "id": 2,
+        "userId": 3,
+        "rating": 4,
+        "text": "J'ai beaucoup apprécié ce voyage, mais je pense que cela aurait été encore mieux si nous avions eu plus de temps pour explorer chaque parc national. Les guides touristiques étaient excellents, mais j'aurais aimé avoir plus de liberté pour explorer la région par moi-même. En fin de compte, c'était une expérience incroyable que je n'oublierai jamais.",
+        "createdAt": "2023-07-14 09:00:00"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Découverte culinaire de Rome",
+    "hostId": 4,
+    "city": "Rome",
+    "country": "Italie",
+    "startDate": "2023-10-01 00:00:00",
+    "endDate": "2023-10-07 23:59:59",
+    "price": 2000,
+    "maxPeople": 12,
+    "description": "Découvrez la riche histoire culinaire de Rome lors de ce voyage de sept jours. Goûtez aux plats traditionnels de la cuisine romaine, visitez les marchés locaux et les vignobles, et apprenez à préparer des spécialités italiennes lors d'un atelier de cuisine.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 5,
+        "rating": 5,
+        "text": "Ce voyage était incroyable ! Nous avons vu tellement d'animaux différents, y compris les célèbres « big five » (lion, éléphant, léopard, buffle et rhinocéros). Les guides touristiques étaient très compétents et nous ont aidés à en apprendre davantage sur la faune sauvage de la région. La visite de Zanzibar était également très agréable et a offert un contraste intéressant avec la savane.",
+        "createdAt": "2023-07-12 11:30:00"
+      },
+      {
+        "id": 2,
+        "userId": 3,
+        "rating": 4,
+        "text": "J'ai beaucoup apprécié ce voyage, mais je pense que cela aurait été encore mieux si nous avions eu plus de temps pour explorer chaque parc national. Les guides touristiques étaient excellents, mais j'aurais aimé avoir plus de liberté pour explorer la région par moi-même. En fin de compte, c'était une expérience incroyable que je n'oublierai jamais.",
+        "createdAt": "2023-07-14 09:00:00"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Découverte du Pérou",
+    "hostId": 4,
+    "city": "Lima",
+    "country": "Pérou",
+    "startDate": "2023-10-01 00:00:00",
+    "endDate": "2023-10-10 23:59:59",
+    "price": 3500,
+    "maxPeople": 12,
+    "description": "Découvrez les merveilles du Pérou lors de ce voyage de 10 jours. Visitez les sites archéologiques de la vallée sacrée des Incas, découvrez les merveilles naturelles de la forêt amazonienne et explorez la ville historique de Cusco. Ce voyage comprend également une visite du célèbre Machu Picchu.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 2,
+        "rating": 5,
+        "text": "Ce voyage était incroyable ! J'ai adoré découvrir toutes les merveilles du Pérou, de la forêt amazonienne au Machu Picchu en passant par les ruines de la vallée sacrée. Notre guide était fantastique et a fait en sorte que nous soyons tous à l'aise et que nous profitions au maximum de l'expérience. Je recommande vivement ce voyage !",
+        "createdAt": "2023-10-11 09:00:00"
+      },
+      {
+        "id": 2,
+        "userId": 4,
+        "rating": 4,
+        "text": "J'ai beaucoup apprécié ce voyage, mais j'ai trouvé certains aspects un peu trop touristiques pour mon goût. Cependant, la visite du Machu Picchu était incroyable et cela valait la peine de faire face aux foules pour voir cette merveille. Dans l'ensemble, je recommande ce voyage pour ceux qui cherchent à découvrir le Pérou.",
+        "createdAt": "2023-10-12 10:30:00"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Safari en Tanzanie",
+    "hostId": 1,
+    "city": "Arusha",
+    "country": "Tanzanie",
+    "startDate": "2023-11-01 00:00:00",
+    "endDate": "2023-11-10 23:59:59",
+    "price": 5000,
+    "maxPeople": 8,
+    "description": "Vivez une expérience de safari inoubliable en Tanzanie. Explorez les parcs nationaux de Serengeti et de Ngorongoro, observez les grands animaux d'Afrique et découvrez la culture locale masai.",
+    "comments": [
+      {
+        "id": 1,
+        "userId": 3,
+        "rating": 5,
+        "text": "Ce voyage était incroyablement émouvant et m'a permis de vivre une expérience que je n'oublierai jamais. J'ai vu des lions, des éléphants, des girafes et bien d'autres animaux dans leur habitat naturel, ce qui était tout simplement incroyable. Notre guide était très compétent et nous a appris beaucoup de choses sur les animaux et la culture masai. Je recommande vivement ce voyage à tous les amoureux de la nature !",
+        "createdAt": "2023-11-11 10:30:00"
+      }
+    ]
   }
 ]

@@ -170,8 +170,8 @@ public class TripInfosController {
             Pane canvas = new Pane();
             canvas.setPrefSize(10,10);
             commentaryDesc.setAlignment(Pos.CENTER_LEFT);
-            Label CommentDescription = new Label(" " + comment.getText());
-            commentaryDesc.getChildren().addAll(canvas, CommentDescription);
+            Text commentDescription = new Text(" " + comment.getText());
+            commentaryDesc.getChildren().addAll(canvas, commentDescription);
             CommentGeneralInfo.getChildren().addAll(commentaryDesc);
 
             VBox commentarDate = new VBox();

@@ -17,7 +17,7 @@
   },
   {
     "id": 3,
-    "tripId": 4,
+    "tripId": 2,
     "userId": 5,
     "state": 3,
     "nbPeople": 7,
@@ -25,7 +25,7 @@
   },
   {
     "id": 4,
-    "tripId": 4,
+    "tripId": 1,
     "userId": 2,
     "state": 1,
     "nbPeople": 8,
