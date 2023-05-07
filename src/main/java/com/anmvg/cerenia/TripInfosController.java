@@ -22,10 +22,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 
-public class TripDetailsController {
+public class TripInfosController {
 
     @FXML
     private Button backButton;
@@ -136,6 +135,6 @@ public class TripDetailsController {
     }
 
     public void initData (Integer id) {
-        TripDetailsController.id = id;
+        TripInfosController.id = id;
     }
 }
