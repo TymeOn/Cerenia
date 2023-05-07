@@ -71,6 +71,9 @@ public class DashboardController {
     @FXML
     private Button nextPageButton;
 
+    @FXML
+    private TextField commentText;
+
     private int pageNumber = 0;
     private int totalPageNumber = 0;
     private final int ITEMS_PER_PAGE = 10;
