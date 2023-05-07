@@ -11,7 +11,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -31,7 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 
-public class CartController {
+public class RecapController {
 
     @FXML
     private ScrollPane mainPane;
@@ -51,7 +53,7 @@ public class CartController {
 
         // DISPLAY THE LIST OF TRIPS
         User currentUser = AuthService.getInstance().getUser();
-        List<Reservation> reservationList = DataService.getInstance().findReservationList(new Integer[]{0}, currentUser, null);
+        List<Reservation> reservationList = DataService.getInstance().findReservationList(new Integer[]{1, 2, 3}, currentUser, null);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         // ROOT OF THE LIST
@@ -124,7 +126,7 @@ public class CartController {
 
             infoButton.setOnAction(event -> {
                 ParameterService.getInstance().setIdParam(trip.getId());
-                ParameterService.getInstance().setLastVisited("cart-view.fxml");
+                ParameterService.getInstance().setLastVisited("recap-view.fxml");
                 navigateTo("trip-infos-view.fxml");
             });
         }

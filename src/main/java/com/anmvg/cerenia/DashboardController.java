@@ -132,18 +132,33 @@ public class DashboardController {
             this.navigateTo("cart-view.fxml");
         });
 
-        MenuItem historyItem = new MenuItem("Historique");
+        MenuItem recapItem = new MenuItem("Récapitulatif");
+        recapItem.setOnAction(event -> {
+            this.navigateTo("recap-view.fxml");
+        });
+
+        MenuItem myTripsItem = new MenuItem("Mes séjours");
+        myTripsItem.setOnAction(event -> {
+            this.navigateTo("my-trips-view.fxml");
+        });
 
         MenuItem requestsItem = new MenuItem("Demandes");
+        requestsItem.setOnAction(event -> {
+            this.navigateTo("requests-view.fxml");
+        });
+
         MenuItem planningItem = new MenuItem("Planning");
+        planningItem.setOnAction(event -> {
+            this.navigateTo("planning-view.fxml");
+        });
 
         User currentUser = AuthService.getInstance().getUser();
         if (currentUser != null) {
             loginButton.setText(currentUser.getFirstName());
             if (!currentUser.isHost()) {
-                loginButton.getItems().addAll(cartItem, historyItem);
+                loginButton.getItems().addAll(cartItem, recapItem);
             } else {
-                loginButton.getItems().addAll(requestsItem, planningItem);
+                loginButton.getItems().addAll(myTripsItem, requestsItem, planningItem);
             }
             loginButton.getItems().add(logoutItem);
         } else {
@@ -283,6 +298,7 @@ public class DashboardController {
 
             infoButton.setOnAction(event -> {
                 ParameterService.getInstance().setIdParam(trip.getId());
+                ParameterService.getInstance().setLastVisited("dashboard-view.fxml");
                 navigateTo("trip-infos-view.fxml");
             });
         }

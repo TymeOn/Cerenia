@@ -24,9 +24,9 @@ public class DataService {
     private static DataService instance;
 
     // fetching all the users from the local json
-    private static List<User> userList;
-    private static List<Trip> tripList;
-    private static List<Reservation> reservationList;
+    private List<User> userList;
+    private List<Trip> tripList;
+    private List<Reservation> reservationList;
 
     // constants for finding the data files
     private final String DATA_PATH = "./data/";
@@ -245,8 +245,6 @@ public class DataService {
             }
 
             if (end != null && match) {
-                System.out.println(end);
-                System.out.println(trip.getEndDate());
                 match = (end.after(trip.getEndDate())) || end.equals(trip.getEndDate());
             }
 
@@ -255,6 +253,19 @@ public class DataService {
             }
 
             if (match) {
+                resultList.add(trip);
+            }
+        }
+
+        return resultList;
+    }
+
+    // getting all the trips from a specific host
+    public List<Trip> getHostTripList(User host) {
+        List<Trip> resultList = new ArrayList<>();
+
+        for (Trip trip : tripList) {
+            if (Objects.equals(trip.getHost().getId(), host.getId())) {
                 resultList.add(trip);
             }
         }
