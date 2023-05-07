@@ -129,7 +129,10 @@ public class DashboardController {
             this.navigateTo("cart-view.fxml");
         });
 
-        MenuItem historyItem = new MenuItem("Historique");
+        MenuItem recapItem = new MenuItem("Récapitulatif");
+        recapItem.setOnAction(event -> {
+            this.navigateTo("recap-view.fxml");
+        });
 
         MenuItem requestsItem = new MenuItem("Demandes");
         MenuItem planningItem = new MenuItem("Planning");
@@ -138,7 +141,7 @@ public class DashboardController {
         if (currentUser != null) {
             loginButton.setText(currentUser.getFirstName());
             if (!currentUser.isHost()) {
-                loginButton.getItems().addAll(cartItem, historyItem);
+                loginButton.getItems().addAll(cartItem, recapItem);
             } else {
                 loginButton.getItems().addAll(requestsItem, planningItem);
             }
