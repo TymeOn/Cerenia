@@ -1,5 +1,6 @@
 package com.anmvg.cerenia;
 
+import com.anmvg.cerenia.models.Comment;
 import com.anmvg.cerenia.models.Trip;
 import com.anmvg.cerenia.models.User;
 import com.anmvg.cerenia.services.AuthService;
@@ -7,11 +8,15 @@ import com.anmvg.cerenia.services.DataService;
 import com.anmvg.cerenia.services.ParameterService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
@@ -22,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 
 public class TripInfosController {
@@ -70,7 +76,8 @@ public class TripInfosController {
     @FXML
     private Spinner<Integer> numberReservation;
 
-    private static int id;
+    @FXML
+    private Button commentButton;
 
     User user;
 
@@ -120,6 +127,68 @@ public class TripInfosController {
         // Configure the Spinner with values of 1 - 100
         SpinnerValueFactory<Integer> peopleValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, trip.getMaxPeople(), 1);
         numberReservation.setValueFactory(peopleValueFactory);
+
+        List<Comment> tripComments = trip.getComments();
+
+
+        DateFormat dateFormatC = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
+
+        // ROOT OF THE LIST
+        GridPane root = new GridPane();
+        root.setPadding(new Insets(10));
+        root.prefWidthProperty().bind(commentPage.widthProperty().subtract(10));
+        root.setHgap(20);
+        root.setVgap(40);
+
+        // COMMENT ITERATION
+        for (int i = 0; i < tripComments.size(); i++) {
+
+            Comment comment = tripComments.get(i);
+
+            // COMMENT User NAME
+            VBox CommentGeneralInfo = new VBox();
+            Label username = new Label(" " + comment.getUser().getFirstName() + " " + comment.getUser().getLastName());
+            username.getStyleClass().add("h3");
+
+            Label note = new Label(" " + comment.getRating() + " / 5 ");
+            note.setPadding(new Insets(0, 0, 0, 15));
+            note.setFont(Font.font("System", 15));
+
+            FontIcon star = new FontIcon("fa-star");
+            star.setIconSize(15);
+            star.setIconColor(Color.web("#d8d800"));
+            HBox starBox = new HBox(1,note , star);
+            starBox.setAlignment(Pos.CENTER_LEFT);
+
+            HBox profile = new HBox(0, new FontIcon("fa-user-circle:30:BLUE"), username, starBox);
+            profile.setAlignment(Pos.CENTER_LEFT);
+            CommentGeneralInfo.getChildren().addAll(profile);
+            root.add(CommentGeneralInfo, 0, i, 1, 1);
+            GridPane.setHgrow(CommentGeneralInfo, Priority.ALWAYS);
+
+            VBox commentaryDesc = new VBox();
+            Pane canvas = new Pane();
+            canvas.setPrefSize(10,10);
+            commentaryDesc.setAlignment(Pos.CENTER_LEFT);
+            Label CommentDescription = new Label(" " + comment.getText());
+            commentaryDesc.getChildren().addAll(canvas, CommentDescription);
+            CommentGeneralInfo.getChildren().addAll(commentaryDesc);
+
+            VBox commentarDate = new VBox();
+            Pane grid = new Pane();
+            grid.setPrefSize(15,15);
+            Label commentDate = new Label("Posté le " + dateFormatC.format(comment.getCreatedAt()));
+            commentarDate.getChildren().addAll(grid, commentDate);
+            CommentGeneralInfo.getChildren().addAll(commentarDate);
+
+
+
+
+
+        }
+        commentPage.setContent(root);
+        commentPage.setPannable(true);
+        commentPage.getStyleClass().add("panel-primary");
     }
 
     public void navigateToDashboard() {
@@ -132,9 +201,5 @@ public class TripInfosController {
         } catch (IOException io) {
             io.printStackTrace();
         }
-    }
-
-    public void initData (Integer id) {
-        TripInfosController.id = id;
     }
 }

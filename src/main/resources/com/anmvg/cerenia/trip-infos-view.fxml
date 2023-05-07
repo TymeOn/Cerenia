@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="924.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anmvg.cerenia.TripInfosController">
+<AnchorPane prefHeight="704.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anmvg.cerenia.TripInfosController">
    <children>
       <Button fx:id="backButton" alignment="TOP_LEFT" layoutX="29.0" layoutY="31.0" mnemonicParsing="false" text=" Retour">
          <styleClass>
@@ -18,11 +18,11 @@
             <String fx:value="btn-default" />
          </styleClass>
       </Button>
-      <VBox layoutX="12.0" layoutY="109.0" prefHeight="962.0" prefWidth="1258.0">
+      <VBox layoutX="12.0" layoutY="109.0" prefHeight="593.0" prefWidth="1258.0">
          <children>
-            <ScrollPane fx:id="mainPane" hbarPolicy="NEVER" prefHeight="854.0" prefWidth="1258.0">
+            <ScrollPane fx:id="mainPane" hbarPolicy="NEVER" prefHeight="992.0" prefWidth="1258.0">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1204.0" prefWidth="1243.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="992.0" prefWidth="1243.0">
                      <children>
                         <Text fx:id="tripName" layoutX="253.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retourner aux temps des dinosaures" />
                         <HBox fx:id="tripLocation" layoutX="253.0" layoutY="47.0" prefHeight="23.0" prefWidth="126.0">
@@ -58,6 +58,7 @@
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="255.0" prefWidth="723.0" />
                            </content>
                         </ScrollPane>
+                        <Button fx:id="commentButton" layoutX="926.0" layoutY="947.0" mnemonicParsing="false" text="Ajouter" />
                      </children></AnchorPane>
                </content>
             </ScrollPane>
