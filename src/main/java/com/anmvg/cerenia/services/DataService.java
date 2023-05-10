@@ -30,6 +30,9 @@ public class DataService {
 
     // constants for finding the data files
     private final String DATA_PATH = "./data/";
+    private final String USERS_FILE = "users.json";
+    private final String TRIPS_FILE = "trips.json";
+    private final String RESERVATIONS_FILE = "reservations.json";
 
 
     // the service constructor, fetching the initial data
@@ -68,6 +71,15 @@ public class DataService {
         return json;
     }
 
+    // method to save JSON data to a file
+    private void saveJSONData(String path, JSONArray jsonData) {
+        try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
+            out.write(jsonData.toString(2));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // fetching all the data
     public void fetchAll() {
         fetchUsers();
@@ -77,7 +89,6 @@ public class DataService {
 
     // fetching all the users from the local json
     private void fetchUsers() {
-        String USERS_FILE = "users.json";
         JSONArray usersJSON = getJSONData(DATA_PATH + USERS_FILE);
         userList = new ArrayList<>();
 
@@ -98,7 +109,6 @@ public class DataService {
 
     // fetching all the trips from the local json
     private void fetchTrips() {
-        String TRIPS_FILE = "trips.json";
         JSONArray tripsJSON = getJSONData(DATA_PATH + TRIPS_FILE);
         tripList = new ArrayList<>();
 
@@ -168,9 +178,48 @@ public class DataService {
         }
     }
 
+    // saving all the trips in memory to a local json
+    public void saveTripList() {
+        JSONArray finalArray = new JSONArray();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        for (Trip trip : tripList) {
+            JSONObject obj = new JSONObject();
+
+            obj.put("id", trip.getId());
+            obj.put("name", trip.getName());
+            obj.put("hostId", trip.getHost().getId());
+            obj.put("city", trip.getCity());
+            obj.put("country", trip.getCountry());
+            obj.put("startDate", sdf.format(trip.getStartDate()));
+            obj.put("endDate", sdf.format(trip.getEndDate()));
+            obj.put("price", trip.getPrice());
+            obj.put("maxPeople", trip.getMaxPeople());
+            obj.put("description", trip.getDescription());
+
+            JSONArray commentsArray = new JSONArray();
+
+            for (Comment comment : trip.getComments()) {
+                JSONObject commObj = new JSONObject();
+
+                commObj.put("userId", comment.getUser().getId());
+                commObj.put("rating", comment.getRating());
+                commObj.put("text", comment.getText());
+                commObj.put("createdAt", sdf.format(comment.getCreatedAt()));
+
+                commentsArray.put(commObj);
+            }
+
+            obj.put("comments", commentsArray);
+
+            finalArray.put(obj);
+        }
+
+        saveJSONData(DATA_PATH + TRIPS_FILE, finalArray);
+    }
+
     // fetching all the reservations from the local json
     private void fetchReservations() {
-        String RESERVATIONS_FILE = "reservations.json";
         JSONArray reservationsJSON = getJSONData(DATA_PATH + RESERVATIONS_FILE);
         reservationList = new ArrayList<>();
 
@@ -206,6 +255,26 @@ public class DataService {
         }
     }
 
+    // saving all the reservations in memory to a local json
+    public void saveReservationList() {
+        JSONArray finalArray = new JSONArray();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        for (Reservation resa : reservationList) {
+            JSONObject obj = new JSONObject();
+
+            obj.put("id", resa.getId());
+            obj.put("tripId", resa.getTrip().getId());
+            obj.put("userId", resa.getUser().getId());
+            obj.put("state", resa.getState());
+            obj.put("nbPeople", resa.getNbPeople());
+            obj.put("createdAt", sdf.format(resa.getCreatedAt()));
+
+            finalArray.put(obj);
+        }
+
+        saveJSONData(DATA_PATH + RESERVATIONS_FILE, finalArray);
+    }
 
     // userList getter
     public List<User> getUserList() {

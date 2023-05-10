@@ -88,6 +88,9 @@ public class MainApplication extends Application {
                 dateFormat.format(reservation.getCreatedAt())
             );
         }
+
+        DataService.getInstance().saveReservationList();
+        DataService.getInstance().saveTripList();
     }
 
     public static void main(String[] args) {
