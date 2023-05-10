@@ -74,6 +74,8 @@ public class DashboardController {
     @FXML
     private TextField commentText;
 
+    private User currentUser;
+
     private int pageNumber = 0;
     private int totalPageNumber = 0;
     private final int ITEMS_PER_PAGE = 10;
@@ -152,7 +154,7 @@ public class DashboardController {
             this.navigateTo("planning-view.fxml");
         });
 
-        User currentUser = AuthService.getInstance().getUser();
+        currentUser = AuthService.getInstance().getUser();
         if (currentUser != null) {
             loginButton.setText(currentUser.getFirstName());
             if (!currentUser.isHost()) {
@@ -292,15 +294,22 @@ public class DashboardController {
             root.add(tripPrice, 4, i, 1, 1);
 
             // INFO BUTTON
-            Button infoButton = new Button("En savoir +");
+            Button infoButton = new Button();
             infoButton.getStyleClass().setAll("btn", "btn-success");
+            if (currentUser == null) {
+                infoButton.setText("Connexion");
+                infoButton.setOnAction(event -> navigateTo("login-view.fxml"));
+            } else {
+                infoButton.setText("En savoir +");
+                infoButton.setOnAction(event -> {
+                    ParameterService.getInstance().setIdParam(trip.getId());
+                    ParameterService.getInstance().setLastVisited("dashboard-view.fxml");
+                    navigateTo("trip-infos-view.fxml");
+                });
+            }
             root.add(infoButton, 5, i, 1, 1);
 
-            infoButton.setOnAction(event -> {
-                ParameterService.getInstance().setIdParam(trip.getId());
-                ParameterService.getInstance().setLastVisited("dashboard-view.fxml");
-                navigateTo("trip-infos-view.fxml");
-            });
+
         }
 
         mainPane.setContent(root);
