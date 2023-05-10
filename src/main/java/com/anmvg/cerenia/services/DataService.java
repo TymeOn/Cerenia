@@ -409,4 +409,17 @@ public class DataService {
         return null;
     }
 
+    // getting the next id for a reservation
+    public int getNextReservationId() {
+        Integer newId = 0;
+
+        for (Reservation reservation : reservationList) {
+            if (reservation.getId() > newId) {
+                newId = reservation.getId();
+            }
+        }
+
+        return newId++;
+    }
+
 }

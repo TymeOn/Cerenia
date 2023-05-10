@@ -1,6 +1,7 @@
 package com.anmvg.cerenia;
 
 import com.anmvg.cerenia.models.Comment;
+import com.anmvg.cerenia.models.Reservation;
 import com.anmvg.cerenia.models.Trip;
 import com.anmvg.cerenia.models.User;
 import com.anmvg.cerenia.services.AuthService;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -80,6 +82,7 @@ public class TripInfosController {
     private Button commentButton;
 
     User user;
+    private boolean addedToCart = false;
 
     public void initialize() throws FileNotFoundException {
         backButton.setGraphic(new FontIcon("fa-arrow-circle-left"));
@@ -122,6 +125,21 @@ public class TripInfosController {
 
         reserveButton.setGraphic(new FontIcon("fa-shopping-cart:8:WHITE"));
         reserveButton.getStyleClass().setAll("btn", "btn-warning");
+        reserveButton.setOnAction(event -> {
+            addedToCart = true;
+            DataService.getInstance().getReservationList().add(new Reservation(
+                    DataService.getInstance().getNextReservationId(),
+                    currentUser,
+                    trip,
+                    0,
+                    numberReservation.getValue(),
+                    new Date()
+            ));
+            DataService.getInstance().saveReservationList();
+
+            reserveButton.setGraphic(new FontIcon("fas-check:8:WHITE"));
+            reserveButton.setText(" Ajouté");
+        });
 
 
         // Configure the Spinner with values of 1 - 100
