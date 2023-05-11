@@ -33,6 +33,7 @@ public class DataService {
     private final String USERS_FILE = "users.json";
     private final String TRIPS_FILE = "trips.json";
     private final String RESERVATIONS_FILE = "reservations.json";
+    private final Integer NB_THREADS = 4;
 
 
     // the service constructor, fetching the initial data
@@ -289,41 +290,73 @@ public class DataService {
     // tripList search function
     public List<Trip> searchTripList(String destination, Date start, Date end, int nbPeople) {
         List<Trip> resultList = new ArrayList<>();
+        List<Thread> threads = new ArrayList<>();
 
-        for (Trip trip : tripList) {
-            boolean match = true;
+        for (int i = 1; i <= NB_THREADS; i++) {
+            int finalI = i;
+            Thread t = new Thread(() -> {
 
-            if (!destination.isEmpty()) {
-                for (String word : destination.split(" ")) {
-                    if (word.length() > 1) {
-                        match = (
-                                (trip.getName().toLowerCase().contains(word.toLowerCase())) ||
-                                (trip.getCountry().toLowerCase().contains(word.toLowerCase())) ||
-                                (trip.getCity().toLowerCase().contains(word.toLowerCase())) ||
-                                (trip.getDescription().toLowerCase().contains(word.toLowerCase()))
-                        );
-                        if (match) {
-                            break;
+                int startIndex;
+                int stopIndex;
+
+                if (finalI == 1) {
+                    startIndex = 0;
+                    stopIndex = (int) Math.floor(tripList.size() / (float) NB_THREADS);
+                } else if (finalI == NB_THREADS) {
+                    startIndex = (int) Math.floor(tripList.size() / (float) NB_THREADS) * (finalI - 1);
+                    stopIndex = tripList.size();
+                } else {
+                    startIndex = (int) Math.floor(tripList.size() / (float) NB_THREADS) * (finalI - 1);
+                    stopIndex = (int) Math.floor(tripList.size() / (float) NB_THREADS) * finalI;
+                }
+
+                for (int j = startIndex; j < stopIndex; j++) {
+                    Trip trip = tripList.get(j);
+                    boolean match = true;
+
+                    if (!destination.isEmpty()) {
+                        for (String word : destination.split(" ")) {
+                            if (word.length() > 1) {
+                                match = (
+                                        (trip.getName().toLowerCase().contains(word.toLowerCase())) ||
+                                                (trip.getCountry().toLowerCase().contains(word.toLowerCase())) ||
+                                                (trip.getCity().toLowerCase().contains(word.toLowerCase())) ||
+                                                (trip.getDescription().toLowerCase().contains(word.toLowerCase()))
+                                );
+                                if (match) {
+                                    break;
+                                }
+                            }
                         }
                     }
+
+                    if (start != null && match) {
+                        match = (start.before(trip.getStartDate()) || start.equals(trip.getStartDate()));
+                    }
+
+                    if (end != null && match) {
+                        match = (end.after(trip.getEndDate())) || end.equals(trip.getEndDate());
+                    }
+
+                    if (nbPeople > 1 && match) {
+                        match = (trip.getMaxPeople() >= nbPeople);
+                    }
+
+                    if (match) {
+                        resultList.add(trip);
+                    }
                 }
-            }
+            });
+            t.start();
+            threads.add(t);
+        }
 
-            if (start != null && match) {
-                match = (start.before(trip.getStartDate()) || start.equals(trip.getStartDate()));
+        try {
+            for (Thread thread : threads) {
+                thread.join();
             }
-
-            if (end != null && match) {
-                match = (end.after(trip.getEndDate())) || end.equals(trip.getEndDate());
-            }
-
-            if (nbPeople > 1 && match) {
-                match = (trip.getMaxPeople() >= nbPeople);
-            }
-
-            if (match) {
-                resultList.add(trip);
-            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
         return resultList;
