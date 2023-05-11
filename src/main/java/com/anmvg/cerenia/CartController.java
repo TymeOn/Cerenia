@@ -116,20 +116,14 @@ public class CartController {
             );
             root.add(tripPeriod, 2, i, 1, 1);
 
-            // TRIP MAX PEOPLE
-            Label tripMaxPeople = new Label(trip.getMaxPeople() + " Personne(s)");
-            root.add(tripMaxPeople, 3, i, 1, 1);
+            // RESERVATION NB PEOPLE
+            Label resaNbPeople = new Label("Pour " + reservation.getNbPeople() + " Personne(s)");
+            root.add(resaNbPeople, 3, i, 1, 1);
 
-
-            // TRIP PRICE
-            VBox tripPrice = new VBox();
-            tripPrice.setAlignment(Pos.CENTER_RIGHT);
-            Label pricePrefix = new Label("à partir de");
-            Label price = new Label(trip.getPrice() + " €");
-            price.getStyleClass().setAll("h4", "text-info");
-            Label priceSuffix = new Label("par personne");
-            tripPrice.getChildren().addAll(pricePrefix, price, priceSuffix);
-            root.add(tripPrice, 4, i, 1, 1);
+            // RESERVATION PRICE
+            Label resaPrice = new Label((trip.getPrice() * reservation.getNbPeople()) + " €");
+            resaPrice.getStyleClass().setAll("h4", "text-info");
+            root.add(resaPrice, 4, i, 1, 1);
 
             // INFO BUTTON
             Button infoButton = new Button("En savoir +");
@@ -142,7 +136,7 @@ public class CartController {
                 navigateTo("trip-infos-view.fxml");
             });
 
-            // INFO BUTTON
+            // DELETE BUTTON
             Button deleteButton = new Button("Supprimer");
             deleteButton.getStyleClass().setAll("btn", "btn-danger");
             root.add(deleteButton, 6, i, 1, 1);

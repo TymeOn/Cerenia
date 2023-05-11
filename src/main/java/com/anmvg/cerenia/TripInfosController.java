@@ -118,10 +118,13 @@ public class TripInfosController {
 
         tripRemainPeople.setText(trip.getMaxPeople() + " personne(s) maximum");
 
-        pricePrefix.setText("à partir de");
+        pricePrefix.setText("Total :");
         tripPrice.setText(trip.getPrice() + " €");
         tripPrice.getStyleClass().setAll("h4", "text-info");
-        priceSuffix.setText("par personne");
+
+        numberReservation.valueProperty().addListener(event -> {
+            tripPrice.setText((trip.getPrice() * numberReservation.getValue()) + " €");
+        });
 
         reserveButton.setGraphic(new FontIcon("fa-shopping-cart:8:WHITE"));
         reserveButton.getStyleClass().setAll("btn", "btn-warning");

@@ -282,7 +282,6 @@ public class DashboardController {
             Label tripMaxPeople = new Label(trip.getMaxPeople() + " Personne(s)");
             root.add(tripMaxPeople, 3, i, 1, 1);
 
-
             // TRIP PRICE
             VBox tripPrice = new VBox();
             tripPrice.setAlignment(Pos.CENTER_RIGHT);

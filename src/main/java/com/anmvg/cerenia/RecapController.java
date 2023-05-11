@@ -96,16 +96,30 @@ public class RecapController {
             root.add(tripGeneralInfo, 1, i, 1, 1);
             GridPane.setHgrow(tripGeneralInfo, Priority.ALWAYS);
 
-            // TRIP STATUS
-            Label tripStatus = new Label("Statut : ");
-            tripStatus.setUnderline(true);
-            tripStatus.getStyleClass().setAll("h5", "text-info");
+            // RESA PEOPLE AND STATUS
+            VBox resaGeneralInfo = new VBox();
+            resaGeneralInfo.setAlignment(Pos.CENTER_LEFT);
+            Label resaStatus = new Label();
+            resaStatus.setUnderline(true);
+            resaStatus.getStyleClass().setAll("h5");
             switch (reservation.getState()) {
-                case 1 -> tripStatus.setText(tripStatus.getText() + "Transmis à l'hôte");
-                case 2 -> tripStatus.setText(tripStatus.getText() + "Confirmé par l'hôte");
-                case 3 -> tripStatus.setText(tripStatus.getText() + "Refusé par l'hôte");
+                case 1 -> {
+                    resaStatus.setText(resaStatus.getText() + "Transmis à l'hôte");
+                    resaStatus.getStyleClass().add("text-info");
+                }
+                case 2 -> {
+                    resaStatus.setText(resaStatus.getText() + "Confirmé par l'hôte");
+                    resaStatus.getStyleClass().add("text-success");
+                }
+                case 3 -> {
+                    resaStatus.setText(resaStatus.getText() + "Refusé par l'hôte");
+                    resaStatus.getStyleClass().add("text-danger");
+                }
             }
-            root.add(tripStatus, 2, i, 1, 1);
+            Label resaNbPeople = new Label("Pour " + reservation.getNbPeople() + " Personne(s)");
+            root.add(resaNbPeople, 4, i, 1, 1);
+            resaGeneralInfo.getChildren().addAll(resaStatus, resaNbPeople);
+            root.add(resaGeneralInfo, 2, i, 1, 1);
 
             // TRIP START & END
             Label tripPeriod = new Label(
@@ -115,19 +129,10 @@ public class RecapController {
             );
             root.add(tripPeriod, 3, i, 1, 1);
 
-            // TRIP MAX PEOPLE
-            Label tripMaxPeople = new Label(trip.getMaxPeople() + " Personne(s)");
-            root.add(tripMaxPeople, 4, i, 1, 1);
-
-            // TRIP PRICE
-            VBox tripPrice = new VBox();
-            tripPrice.setAlignment(Pos.CENTER_RIGHT);
-            Label pricePrefix = new Label("à partir de");
-            Label price = new Label(trip.getPrice() + " €");
-            price.getStyleClass().setAll("h4", "text-info");
-            Label priceSuffix = new Label("par personne");
-            tripPrice.getChildren().addAll(pricePrefix, price, priceSuffix);
-            root.add(tripPrice, 5, i, 1, 1);
+            // RESERVATION PRICE
+            Label resaPrice = new Label((trip.getPrice() * reservation.getNbPeople()) + " €");
+            resaPrice.getStyleClass().setAll("h4", "text-info");
+            root.add(resaPrice, 5, i, 1, 1);
 
             // INFO BUTTON
             Button infoButton = new Button("En savoir +");

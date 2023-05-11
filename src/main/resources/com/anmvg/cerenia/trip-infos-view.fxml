@@ -44,9 +44,8 @@
                                     <Spinner fx:id="numberReservation" layoutX="191.0" layoutY="28.0" />
                                     <VBox layoutX="434.0" layoutY="11.0" prefHeight="59.0" prefWidth="100.0">
                                        <children>
-                                          <Text fx:id="pricePrefix" strokeType="OUTSIDE" strokeWidth="0.0" text="à partir de" />
+                                          <Text fx:id="pricePrefix" strokeType="OUTSIDE" strokeWidth="0.0" text="Total :" />
                                           <Text fx:id="tripPrice" strokeType="OUTSIDE" strokeWidth="0.0" text="871" />
-                                          <Text fx:id="priceSuffix" strokeType="OUTSIDE" strokeWidth="0.0" text="par personne" />
                                        </children>
                                     </VBox>
                                     <Button fx:id="reserveButton" layoutX="590.0" layoutY="24.0" mnemonicParsing="false" text="Ajouter au panier" />
