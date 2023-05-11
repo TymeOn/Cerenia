@@ -19,6 +19,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -184,7 +185,7 @@ public class TripInfosController {
         commentPage.setPannable(true);
         commentPage.getStyleClass().add("panel-primary");
 
-        // Horizontal scroll bar is only displayed when needed
+        // Horizontal scroll bar is never displayed
         commentPage.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
@@ -220,8 +221,22 @@ public class TripInfosController {
             Pane canvas = new Pane();
             canvas.setPrefSize(10,10);
             commentaryDesc.setAlignment(Pos.CENTER_LEFT);
-            Text commentDescription = new Text(" " + comment.getText());
-            commentaryDesc.getChildren().addAll(canvas, commentDescription);
+            TextFlow textFlow = new TextFlow();
+            String[] words = comment.getText().split("\\s+");
+            StringBuilder line = new StringBuilder();
+            for (String word : words) {
+                Text text = new Text(word + " ");
+                if (line.length() + word.length() + 1 > 50) {
+                    textFlow.getChildren().add(new Text(line.toString() + "\n"));
+                    line = new StringBuilder();
+                }
+                line.append(word).append(" ");
+                textFlow.getChildren().add(text);
+            }
+
+            textFlow.getChildren().add(new Text(line.toString()));
+
+            commentaryDesc.getChildren().addAll(canvas, textFlow);
             CommentGeneralInfo.getChildren().addAll(commentaryDesc);
 
             VBox commentarDate = new VBox();
