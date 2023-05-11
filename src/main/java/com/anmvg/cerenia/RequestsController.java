@@ -104,30 +104,43 @@ public class RequestsController {
             );
             root.add(tripPeriod, 2, i, 1, 1);
 
-            // TRIP MAX PEOPLE
-            Label tripMaxPeople = new Label(trip.getMaxPeople() + " Personne(s)");
-            root.add(tripMaxPeople, 3, i, 1, 1);
+            // RESERVATION CUSTOMER & PEOPLE
+            VBox tripResaInfo = new VBox();
+            tripResaInfo.setAlignment(Pos.CENTER_LEFT);
+            Label resaCustomer = new Label(reservation.getUser().getFirstName() + " " + reservation.getUser().getLastName());
+            resaCustomer.getStyleClass().setAll("h5", "text-info");
+            resaCustomer.setUnderline(true);
+            Label resaNbPeople = new Label(reservation.getNbPeople() + " Personne(s)");
+            tripResaInfo.getChildren().addAll(resaCustomer, resaNbPeople);
+            root.add(tripResaInfo, 3, i, 1, 1);
 
+            // RESERVATION PRICE
+            Label resaPrice = new Label((trip.getPrice() * reservation.getNbPeople()) + " €");
+            resaPrice.getStyleClass().setAll("h4", "text-info");
+            root.add(resaPrice, 4, i, 1, 1);
 
-            // TRIP PRICE
-            VBox tripPrice = new VBox();
-            tripPrice.setAlignment(Pos.CENTER_RIGHT);
-            Label pricePrefix = new Label("à partir de");
-            Label price = new Label(trip.getPrice() + " €");
-            price.getStyleClass().setAll("h4", "text-info");
-            Label priceSuffix = new Label("par personne");
-            tripPrice.getChildren().addAll(pricePrefix, price, priceSuffix);
-            root.add(tripPrice, 4, i, 1, 1);
+            // ACCEPT BUTTON
+            Button acceptButton = new Button("Accepter");
+            acceptButton.getStyleClass().setAll("btn", "btn-success");
+            acceptButton.setGraphic(new FontIcon("fas-check"));
+            root.add(acceptButton, 5, i, 1, 1);
 
-            // INFO BUTTON
-            Button infoButton = new Button("En savoir +");
-            infoButton.getStyleClass().setAll("btn", "btn-success");
-            root.add(infoButton, 5, i, 1, 1);
+            acceptButton.setOnAction(event -> {
+                reservation.setState(2);
+                DataService.getInstance().saveReservationList();
+                this.initialize();
+            });
 
-            infoButton.setOnAction(event -> {
-                ParameterService.getInstance().setIdParam(trip.getId());
-                ParameterService.getInstance().setLastVisited("requests-view.fxml");
-                navigateTo("trip-infos-view.fxml");
+            // REFUSE BUTTON
+            Button refuseButton = new Button("Refuser");
+            refuseButton.getStyleClass().setAll("btn", "btn-danger");
+            refuseButton.setGraphic(new FontIcon("fas-times"));
+            root.add(refuseButton, 6, i, 1, 1);
+
+            refuseButton.setOnAction(event -> {
+                reservation.setState(3);
+                DataService.getInstance().saveReservationList();
+                this.initialize();
             });
         }
 
