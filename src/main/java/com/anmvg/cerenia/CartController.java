@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -38,6 +39,9 @@ public class CartController {
 
     @FXML
     private Button backButton;
+
+    @FXML
+    private Button validateButton;
 
 
     // Cart initialization
@@ -53,6 +57,16 @@ public class CartController {
         User currentUser = AuthService.getInstance().getUser();
         List<Reservation> reservationList = DataService.getInstance().findReservationList(new Integer[]{0}, currentUser, null);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        // VALIDATE BUTTON
+        validateButton.setGraphic(new FontIcon("fas-euro-sign:8:WHITE"));
+        validateButton.setOnAction(event -> {
+            for (Reservation resa : reservationList) {
+                resa.setState(1);
+            }
+            DataService.getInstance().saveReservationList();
+            this.initialize();
+        });
 
         // ROOT OF THE LIST
         GridPane root = new GridPane();
@@ -126,6 +140,17 @@ public class CartController {
                 ParameterService.getInstance().setIdParam(trip.getId());
                 ParameterService.getInstance().setLastVisited("cart-view.fxml");
                 navigateTo("trip-infos-view.fxml");
+            });
+
+            // INFO BUTTON
+            Button deleteButton = new Button("Supprimer");
+            deleteButton.getStyleClass().setAll("btn", "btn-danger");
+            root.add(deleteButton, 6, i, 1, 1);
+
+            deleteButton.setOnAction(event -> {
+                DataService.getInstance().getReservationList().remove(reservation);
+                DataService.getInstance().saveReservationList();
+                this.initialize();
             });
         }
 

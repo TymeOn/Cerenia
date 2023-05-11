@@ -96,18 +96,28 @@ public class RecapController {
             root.add(tripGeneralInfo, 1, i, 1, 1);
             GridPane.setHgrow(tripGeneralInfo, Priority.ALWAYS);
 
+            // TRIP STATUS
+            Label tripStatus = new Label("Statut : ");
+            tripStatus.setUnderline(true);
+            tripStatus.getStyleClass().setAll("h5", "text-info");
+            switch (reservation.getState()) {
+                case 1 -> tripStatus.setText(tripStatus.getText() + "Transmis à l'hôte");
+                case 2 -> tripStatus.setText(tripStatus.getText() + "Confirmé par l'hôte");
+                case 3 -> tripStatus.setText(tripStatus.getText() + "Refusé par l'hôte");
+            }
+            root.add(tripStatus, 2, i, 1, 1);
+
             // TRIP START & END
             Label tripPeriod = new Label(
                     dateFormat.format(trip.getStartDate()) +
                             " - " +
                             dateFormat.format(trip.getEndDate())
             );
-            root.add(tripPeriod, 2, i, 1, 1);
+            root.add(tripPeriod, 3, i, 1, 1);
 
             // TRIP MAX PEOPLE
             Label tripMaxPeople = new Label(trip.getMaxPeople() + " Personne(s)");
-            root.add(tripMaxPeople, 3, i, 1, 1);
-
+            root.add(tripMaxPeople, 4, i, 1, 1);
 
             // TRIP PRICE
             VBox tripPrice = new VBox();
@@ -117,12 +127,12 @@ public class RecapController {
             price.getStyleClass().setAll("h4", "text-info");
             Label priceSuffix = new Label("par personne");
             tripPrice.getChildren().addAll(pricePrefix, price, priceSuffix);
-            root.add(tripPrice, 4, i, 1, 1);
+            root.add(tripPrice, 5, i, 1, 1);
 
             // INFO BUTTON
             Button infoButton = new Button("En savoir +");
             infoButton.getStyleClass().setAll("btn", "btn-success");
-            root.add(infoButton, 5, i, 1, 1);
+            root.add(infoButton, 6, i, 1, 1);
 
             infoButton.setOnAction(event -> {
                 ParameterService.getInstance().setIdParam(trip.getId());

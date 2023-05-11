@@ -23,12 +23,19 @@
                <String fx:value="btn-default" />
             </styleClass>
          </Button>
-         <Pane prefWidth="450.0" />
+         <Pane prefWidth="425.0" />
          <Label styleClass="h2" text="Mon panier" textAlignment="CENTER">
             <font>
                <Font name="System Bold" size="24.0" />
             </font>
          </Label>
+         <Pane prefWidth="425.0" />
+         <Button fx:id="validateButton" mnemonicParsing="false" prefWidth="110.0" text="Valider" textAlignment="CENTER">
+            <styleClass>
+               <String fx:value="btn" />
+               <String fx:value="btn-success" />
+            </styleClass>
+         </Button>
       </children>
       <padding>
          <Insets top="10.0" />
