@@ -50,8 +50,6 @@ public class TripInfosController {
     private Text pricePrefix;
 
     @FXML
-    private Text priceSuffix;
-    @FXML
     private Text tripDescription;
 
     @FXML
@@ -79,10 +77,17 @@ public class TripInfosController {
     private Spinner<Integer> numberReservation;
 
     @FXML
+    private TextField commentText;
+
+    @FXML
+    private Spinner<Integer> commentRateSpinner;
+
+    @FXML
     private Button commentButton;
 
     User user;
     private boolean addedToCart = false;
+    private GridPane root;
 
     public void initialize() throws FileNotFoundException {
         backButton.setGraphic(new FontIcon("fa-arrow-circle-left"));
@@ -149,19 +154,43 @@ public class TripInfosController {
         SpinnerValueFactory<Integer> peopleValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, trip.getMaxPeople(), 1);
         numberReservation.setValueFactory(peopleValueFactory);
 
-        List<Comment> tripComments = trip.getComments();
-
-
-        DateFormat dateFormatC = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
-
         // ROOT OF THE LIST
-        GridPane root = new GridPane();
+        root = new GridPane();
         root.setPadding(new Insets(10));
         root.prefWidthProperty().bind(commentPage.widthProperty().subtract(10));
         root.setHgap(20);
         root.setVgap(40);
 
         // COMMENT ITERATION
+        List<Comment> tripComments = trip.getComments();
+        displayComments(tripComments);
+
+        SpinnerValueFactory<Integer> commentRateFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 1);
+        commentRateSpinner.setValueFactory(commentRateFactory);
+
+        commentButton.setOnAction(event -> {
+            DataService.getInstance().getTrip(trip.getId()).getComments().add(new Comment(
+                currentUser,
+                commentRateSpinner.getValue(),
+                commentText.getText(),
+                new Date()
+            ));
+            DataService.getInstance().saveTripList();
+            displayComments(DataService.getInstance().getTrip(trip.getId()).getComments());
+            commentText.clear();
+        });
+
+        commentPage.setContent(root);
+        commentPage.setPannable(true);
+        commentPage.getStyleClass().add("panel-primary");
+
+        // Horizontal scroll bar is only displayed when needed
+        commentPage.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    }
+
+    private void displayComments(List<Comment> tripComments) {
+        DateFormat dateFormatC = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
+
         for (int i = 0; i < tripComments.size(); i++) {
 
             Comment comment = tripComments.get(i);
@@ -201,18 +230,7 @@ public class TripInfosController {
             Label commentDate = new Label("Posté le " + dateFormatC.format(comment.getCreatedAt()));
             commentarDate.getChildren().addAll(grid, commentDate);
             CommentGeneralInfo.getChildren().addAll(commentarDate);
-
-
-
-
-
         }
-        commentPage.setContent(root);
-        commentPage.setPannable(true);
-        commentPage.getStyleClass().add("panel-primary");
-
-        // Horizontal scroll bar is only displayed when needed
-        commentPage.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
     private void navigateTo(String source) {
