@@ -10,10 +10,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import org.apache.commons.io.IOUtils;
 
@@ -160,6 +157,8 @@ public class DataService {
                 );
             }
 
+            comments.sort(Comparator.comparing(Comment::getCreatedAt));
+
             // putting the trips in the list
             tripList.add(
                 new Trip(
@@ -177,6 +176,8 @@ public class DataService {
                 )
             );
         }
+
+        tripList.sort(Comparator.comparing(Trip::getStartDate));
     }
 
     // saving all the trips in memory to a local json
@@ -254,6 +255,8 @@ public class DataService {
                 )
             );
         }
+
+        reservationList.sort(Comparator.comparing(Reservation::getCreatedAt));
     }
 
     // saving all the reservations in memory to a local json
