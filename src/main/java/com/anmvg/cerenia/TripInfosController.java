@@ -236,7 +236,7 @@ public class TripInfosController {
                 textFlow.getChildren().add(text);
             }
 
-            textFlow.getChildren().add(new Text(line.toString()));
+            // textFlow.getChildren().add(new Text(line.toString()));
 
             commentaryDesc.getChildren().addAll(canvas, textFlow);
             CommentGeneralInfo.getChildren().addAll(commentaryDesc);
