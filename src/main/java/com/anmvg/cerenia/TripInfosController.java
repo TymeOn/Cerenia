@@ -135,19 +135,21 @@ public class TripInfosController {
         reserveButton.setGraphic(new FontIcon("fa-shopping-cart:8:WHITE"));
         reserveButton.getStyleClass().setAll("btn", "btn-warning");
         reserveButton.setOnAction(event -> {
-            addedToCart = true;
-            DataService.getInstance().getReservationList().add(new Reservation(
-                    DataService.getInstance().getNextReservationId(),
-                    currentUser,
-                    trip,
-                    0,
-                    numberReservation.getValue(),
-                    new Date()
-            ));
-            DataService.getInstance().saveReservationList();
+            if (!addedToCart) {
+                addedToCart = true;
+                DataService.getInstance().getReservationList().add(new Reservation(
+                        DataService.getInstance().getNextReservationId(),
+                        currentUser,
+                        trip,
+                        0,
+                        numberReservation.getValue(),
+                        new Date()
+                ));
+                DataService.getInstance().saveReservationList();
 
-            reserveButton.setGraphic(new FontIcon("fas-check:8:WHITE"));
-            reserveButton.setText(" Ajouté");
+                reserveButton.setGraphic(new FontIcon("fas-check:8:WHITE"));
+                reserveButton.setText(" Ajouté");
+            }
         });
 
 
